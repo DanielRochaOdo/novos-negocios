@@ -178,3 +178,65 @@ section h3{font-size:12px}.section-title p{font-size:9px;line-height:1.5;color:#
 .theme-dark .empty-state{background:#0b1928;border-color:#2a4157;color:#8099ae}
 .theme-dark .empty-state b{color:#d8e7f3}
 .theme-dark .empty-state svg{color:#60829f}
+
+/* Dark theme — Agenda, Funil e Login */
+.theme-dark .agenda-nav{background:#0c1b2a;border-color:#20384f;box-shadow:0 6px 16px rgba(0,0,0,.15)}
+.theme-dark .agenda-nav button{color:#b9cad8!important}
+.theme-dark .agenda-nav b{color:#dce8f2}
+.theme-dark .week-head,.theme-dark .month-head,.theme-dark .day-calendar-head{background:#0a1725;border-color:#1e354a}
+.theme-dark .week-head>*,.theme-dark .month-head b,.theme-dark .day-calendar-head{color:#9db1c2}
+.theme-dark .week-body>small,.theme-dark .day-hour>small{color:#7890a5;border-color:#1a3045}
+.theme-dark .slot,.theme-dark .day-slot,.theme-dark .month-day{background:#0d1b2a;border-color:#1a3045!important;color:#dce8f2}
+.theme-dark .slot:hover,.theme-dark .day-slot:hover,.theme-dark .month-day:hover{background:#11263a}
+.theme-dark .slot:empty:after,.theme-dark .day-slot:empty:after{color:#56728b}
+.theme-dark .month-day.muted{background:#091521;color:#50687d}
+.theme-dark .month-day span{background:#102f4b;color:#cce5fb;border-left-color:#218cff}
+.theme-dark .cal-event{background:#103354;color:#e7f4ff;border-left-color:#218cff;box-shadow:0 3px 9px rgba(0,0,0,.18)}
+.theme-dark .cal-event.return{background:#2a2052;color:#eadfff;border-left-color:#926cff}
+.theme-dark .cal-event small{color:#9cb2c6}
+.theme-dark .agenda-list-item{color:#e4eef6}
+.theme-dark .agenda-list-item:hover{background:#11263a}
+.theme-dark .agenda-list-item span,.theme-dark .agenda-list-item time{color:#8299ad}
+
+.theme-dark .lane{border-color:#22394f;background:#0d1d2d}
+.theme-dark .lane-prospeccao{background:linear-gradient(180deg,#0d2134,#0b1a28)}
+.theme-dark .lane-agendamento{background:linear-gradient(180deg,#1a1735,#121628)}
+.theme-dark .lane-negociacao{background:linear-gradient(180deg,#2b2114,#191913)}
+.theme-dark .lane-venda_ganha{background:linear-gradient(180deg,#10271d,#0d1d19)}
+.theme-dark .lane-venda_perdida{background:linear-gradient(180deg,#2a171a,#1b1419)}
+.theme-dark .lane.drop-active{box-shadow:0 0 0 2px rgba(22,136,255,.32),0 16px 30px rgba(0,0,0,.22)}
+.theme-dark .lane-title h3{color:#edf5fb}
+.theme-dark .lane-title span{background:#13283c;color:#9fb6ca}
+.theme-dark .deal{background:linear-gradient(180deg,#132437,#0f1f30);border-color:#28435d}
+.theme-dark .deal:hover{border-color:#365f82;box-shadow:0 16px 34px rgba(0,0,0,.24)}
+.theme-dark .deal-details{border-top-color:#20374d}
+.theme-dark .deal-details small{color:#71899d}
+.theme-dark .deal-email{color:#90a5b7}
+.theme-dark .deal-deadline{background:#2c2413;color:#e2c477}
+.theme-dark .drag-handle{color:#6d879d}
+.theme-dark .search svg{color:#7892a8}
+.theme-dark .kanban-tools select{background:#0a1725;color:#dce8f2;border-color:#294159}
+
+.theme-dark-login{background:#06101c}
+.theme-dark-login .login-form-pane{background:radial-gradient(circle at 85% 12%,rgba(22,136,255,.08),transparent 25%),linear-gradient(180deg,#0b1725,#07111d)}
+.theme-dark-login .login-card{background:linear-gradient(180deg,#102236,#0d1b2a);border-color:#223b52;box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.theme-dark-login .login-card-head h1{color:#edf5fb}
+.theme-dark-login .login-card-head p{color:#8fa6b9}
+.theme-dark-login .login-card label{color:#c2d2df}
+.theme-dark-login .login-card input{background:#081522;border-color:#294159;color:#edf5fb}
+.theme-dark-login .login-card input::placeholder{color:#607a91}
+.theme-dark-login .login-row{color:#5dacfa}
+.theme-dark-login .check{color:#a9bdcd}
+.theme-dark-login .login-help{color:#6f879b}
+.theme-dark-login .login-error{background:#30191d;border-color:#653139;color:#ffadb5}
+
+@media(max-width:1200px){
+  .app.theme-dark{grid-template-columns:188px minmax(0,1fr)}
+  .app.theme-dark.sidebar-collapsed{grid-template-columns:82px minmax(0,1fr)}
+}
+@media(max-width:760px){
+  .app.theme-dark,.app.theme-dark.sidebar-collapsed,.app.theme-dark.sidebar-expanded{grid-template-columns:64px minmax(0,1fr)}
+  .theme-dark .sidebar-toggle{display:none}
+  .theme-dark .brand-lockup.compact .brand-copy,.theme-dark .profile-copy,.theme-dark nav a span,.theme-dark .logout span{display:none}
+  .theme-dark nav a,.theme-dark .logout{justify-content:center}
+}
