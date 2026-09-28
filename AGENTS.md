@@ -600,6 +600,15 @@ Não apagar histórico.
 
 ## 18. Regras técnicas de implementação
 
+### Deploy na Vercel
+- o frontend Vite gera artefatos em `dist/public`; a Vercel deve publicar exatamente esse diretório;
+- `vercel.json` precisa declarar `buildCommand: npm run build` e `outputDirectory: dist/public`;
+- a SPA usa fallback para `/index.html`, mas rotas `/api/*` devem ser encaminhadas antes para a Vercel Function da API;
+- o Express deve exportar `app` e não executar `app.listen()` quando `process.env.VERCEL` estiver presente;
+- `api/index.ts` é a entrada serverless que reaproveita o Express e reconstrói o caminho original `/api/*`;
+- em Project Settings da Vercel, o Root Directory deve permanecer na raiz do repositório, salvo decisão arquitetural explícita diferente;
+- um deploy não é considerado validado apenas porque o build ficou READY: testar `/`, `/api/me`, login, Neon e callback Google em produção.
+
 Antes de declarar uma correção concluída:
 1. ler este AGENTS.md;
 2. identificar regra funcional envolvida;
