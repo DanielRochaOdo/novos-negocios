@@ -68,6 +68,15 @@ Telas visuais aprovadas:
 
 Ao alterar UI, comparar explicitamente com essa referência. Funcionalidade não justifica abandonar o layout aprovado.
 
+### Tema escuro e sidebar
+- o sistema autenticado usa **tema escuro por padrão**, preservando a identidade Odontoart (azul-marinho, azul de ação e verde institucional);
+- superfícies, calendário, Kanban, formulários, tabelas, Perfil e Configurações precisam ter contraste adequado no modo escuro;
+- a sidebar inicia **colapsada por padrão** em novos navegadores/sessões;
+- o usuário pode expandir/recolher a sidebar por um controle explícito;
+- a preferência de sidebar pode ser preservada localmente no navegador;
+- quando colapsada, mostrar ícones, marca e tooltips/títulos suficientes para manter a navegação compreensível;
+- em telas pequenas, a sidebar permanece compacta.
+
 ### Lembrar de mim
 - o checkbox **Lembrar de mim** deve ter efeito real no backend;
 - marcado: sessão autenticada com expiração de 30 dias, persistida no PostgreSQL/Neon para sobreviver a reinícios do servidor;
