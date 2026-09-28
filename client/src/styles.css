@@ -97,3 +97,84 @@ section h3{font-size:12px}.section-title p{font-size:9px;line-height:1.5;color:#
 .company-result-card{border-radius:14px;padding:16px 18px}.company-avatar{border-radius:12px}.company-result-title a{font-size:13px}.company-state-note{display:inline-flex;width:max-content;max-width:100%;padding:5px 7px;border-radius:999px;background:#f3f6f9;color:#60758a}.week,.month,.day-calendar,.agenda-list{border-radius:14px}.lane{border-radius:14px}.deal{border-radius:11px;background:#fff}.deal:hover{box-shadow:var(--premium-shadow-hover)}
 @media(max-width:1200px){.app{grid-template-columns:188px minmax(0,1fr)}.main-shell{padding:26px 22px 42px}.page-heading h1{font-size:26px}.brand-lockup.compact .brand-mark{width:44px;height:44px}.brand-lockup.compact .brand-copy b{font-size:14px}}
 @media(max-width:760px){.app{grid-template-columns:64px minmax(0,1fr)}aside{padding:16px 7px}.sidebar-brand{border-bottom:0}.brand-lockup.compact .brand-copy{display:none}.brand-lockup.compact .brand-mark{width:46px;height:46px}.profile-link{grid-template-columns:1fr;padding:6px}.profile-avatar{margin:auto}.profile-copy{display:none}.logout{justify-content:center}.logout span{display:none}.main-shell{padding:20px 13px 36px}.page-header{align-items:flex-start;flex-direction:column}.page-actions{width:100%}.page-actions>.primary{width:100%}.page-heading h1{font-size:25px}.config-tabs{width:100%}.cards{grid-template-columns:1fr}}
+
+/* Dark theme + sidebar colapsável */
+.theme-dark{
+  --dark-bg:#07111d;
+  --dark-bg-2:#0a1624;
+  --dark-panel:#0d1b2a;
+  --dark-panel-2:#112235;
+  --dark-panel-3:#14283d;
+  --dark-border:#20364b;
+  --dark-border-soft:#192c40;
+  --dark-text:#edf5fb;
+  --dark-muted:#8fa6b9;
+  --dark-muted-2:#6f879c;
+  --dark-blue:#1688ff;
+  --dark-green:#73dc12;
+  --dark-shadow:0 16px 38px rgba(0,0,0,.20);
+  color:var(--dark-text);
+  background:var(--dark-bg);
+}
+.app.theme-dark{min-height:100vh;grid-template-columns:214px minmax(0,1fr);transition:grid-template-columns .24s cubic-bezier(.2,.8,.2,1)}
+.app.theme-dark.sidebar-collapsed{grid-template-columns:82px minmax(0,1fr)}
+.theme-dark aside{width:auto;background:radial-gradient(circle at 30% 4%,rgba(115,220,18,.08),transparent 22%),linear-gradient(180deg,#061827 0%,#04111e 100%);border-right:1px solid #173047;box-shadow:12px 0 32px rgba(0,0,0,.18);transition:padding .24s ease}
+.sidebar-top{position:relative;min-height:72px}
+.sidebar-toggle{position:absolute;right:-26px;top:18px;width:30px;height:30px;border-radius:9px;border:1px solid #29445d;background:#102438;color:#b9cadd;display:grid;place-items:center;z-index:20;box-shadow:0 8px 20px rgba(0,0,0,.22);transition:.18s ease}
+.sidebar-toggle:hover{background:#17304a;color:#fff;border-color:#3b5e7b;transform:translateX(1px)}
+.sidebar-toggle svg{width:14px;height:14px}
+.sidebar-expanded .sidebar-brand{opacity:1}
+.sidebar-collapsed aside{padding-left:12px;padding-right:12px}
+.sidebar-collapsed .sidebar-brand{justify-content:center;padding-left:0;padding-right:0}
+.sidebar-collapsed .brand-lockup.compact{justify-content:center}
+.sidebar-collapsed .brand-lockup.compact .brand-copy{display:none}
+.sidebar-collapsed .brand-lockup.compact .brand-mark{width:48px;height:48px}
+.sidebar-collapsed nav a{justify-content:center;padding-left:0;padding-right:0;gap:0}
+.sidebar-collapsed nav a span{display:none}
+.sidebar-collapsed nav a.active:after{right:7px}
+.sidebar-collapsed .profile-link{grid-template-columns:1fr;justify-items:center;padding:7px}
+.sidebar-collapsed .profile-copy{display:none}
+.sidebar-collapsed .logout{justify-content:center;padding-left:0;padding-right:0}
+.sidebar-collapsed .logout span{display:none}
+.sidebar-collapsed .aside-bottom{align-items:center}
+.sidebar-collapsed .sidebar-toggle{right:-26px}
+
+.theme-dark .main-shell{background:radial-gradient(circle at 100% 0,rgba(22,136,255,.08),transparent 25%),radial-gradient(circle at 82% 4%,rgba(115,220,18,.035),transparent 18%),linear-gradient(180deg,var(--dark-bg-2),var(--dark-bg));color:var(--dark-text)}
+.theme-dark .main-shell:before{background:radial-gradient(circle,rgba(22,136,255,.05),transparent 67%)}
+.theme-dark .page-header{border-bottom-color:var(--dark-border-soft)}
+.theme-dark .page-eyebrow{color:#7890a5}
+.theme-dark .page-eyebrow i{background:var(--dark-green)}
+.theme-dark .page-heading h1,.theme-dark h1,.theme-dark h2,.theme-dark h3,.theme-dark h4{color:var(--dark-text)}
+.theme-dark .page-heading p,.theme-dark header p,.theme-dark .muted-text{color:var(--dark-muted)}
+.theme-dark section,.theme-dark .metric,.theme-dark .week,.theme-dark .month,.theme-dark .day-calendar,.theme-dark .agenda-list,.theme-dark .company-result-card,.theme-dark .deal,.theme-dark .search,.theme-dark .visit-form{background:linear-gradient(180deg,rgba(17,34,53,.98),rgba(13,27,42,.98));border-color:var(--dark-border);box-shadow:var(--dark-shadow);color:var(--dark-text)}
+.theme-dark section{border-color:var(--dark-border)}
+.theme-dark .metric:after{background:rgba(22,136,255,.06)}
+.theme-dark .metric span,.theme-dark .metric small,.theme-dark .legend,.theme-dark .deal small,.theme-dark .company-state-note,.theme-dark .company-result-title small,.theme-dark .company-meta small{color:var(--dark-muted)}
+.theme-dark .metric b,.theme-dark .deal b,.theme-dark .company-meta b,.theme-dark .company-result-title a,.theme-dark .company-result-main,.theme-dark .deal-head a{color:var(--dark-text)}
+.theme-dark .company-result-title a:hover,.theme-dark .deal-edit{color:#5eafff}
+.theme-dark input,.theme-dark select,.theme-dark textarea{background:#0a1725;border-color:#294159;color:var(--dark-text);box-shadow:none}
+.theme-dark input::placeholder,.theme-dark textarea::placeholder{color:#617b92}
+.theme-dark input:focus,.theme-dark select:focus,.theme-dark textarea:focus{border-color:#3187d9;box-shadow:0 0 0 3px rgba(22,136,255,.12)}
+.theme-dark .outline{background:#102235;border-color:#2a455f;color:#c8d9e7}
+.theme-dark .outline:hover{background:#17304a;border-color:#3e6688;color:#fff}
+.theme-dark .date-pill{background:#102235;border-color:#29445d;color:#d8e7f3}
+.theme-dark .tabs,.theme-dark .config-tabs,.theme-dark .agenda-tabs{background:#0a1725!important;border-color:#20384f!important}
+.theme-dark .tabs button,.theme-dark .tabs span,.theme-dark .tabs b,.theme-dark .config-tabs button,.theme-dark .agenda-head .tabs button{color:#8fa6b9!important}
+.theme-dark .tabs button.active,.theme-dark .tabs .active,.theme-dark .tabs b,.theme-dark .config-tabs button.active,.theme-dark .agenda-head .tabs button.active{background:#14283d!important;color:#61adff!important;box-shadow:0 2px 9px rgba(0,0,0,.20)!important}
+.theme-dark .success{background:#0c2a20;border-color:#1c5b43;color:#8fe4b3}
+.theme-dark .warn-box{background:#2d2412;border-color:#5b4721;color:#e9c87d}
+.theme-dark .integration-status.connected{background:#0c2a20;border-color:#1c5b43;color:#8fe4b3}
+.theme-dark .integration-status.disconnected{background:#2d2412;border-color:#5b4721;color:#e9c87d}
+.theme-dark .settings-grid label,.theme-dark .mini-stats>div,.theme-dark .data-grid span,.theme-dark .value-summary span{background:#0a1725;border-color:#20384f;color:var(--dark-text)}
+.theme-dark .settings-grid small,.theme-dark .mini-stats small,.theme-dark .data-grid small{color:var(--dark-muted)}
+.theme-dark .history{border-bottom-color:#1b3147}
+.theme-dark .history:nth-child(even){background:#0b1928}
+.theme-dark .tag-table,.theme-dark .users-table{border-color:var(--dark-border)}
+.theme-dark .tag-table>*:nth-child(-n+4),.theme-dark .users-table>*:nth-child(-n+5){background:#0a1725;color:#a9bfd0}
+.theme-dark .tag-table>*,.theme-dark .users-table>*{border-bottom-color:#1c3248}
+.theme-dark .company-avatar{background:linear-gradient(135deg,#103452,#123c5f);color:#7ec1ff;box-shadow:inset 0 0 0 1px #224969}
+.theme-dark .company-state-note{background:#0a1725;color:#8fa6b9}
+.theme-dark .blocked{background:#14202d;color:#8298aa}
+.theme-dark .empty-state{background:#0b1928;border-color:#2a4157;color:#8099ae}
+.theme-dark .empty-state b{color:#d8e7f3}
+.theme-dark .empty-state svg{color:#60829f}
