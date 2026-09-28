@@ -240,3 +240,21 @@ section h3{font-size:12px}.section-title p{font-size:9px;line-height:1.5;color:#
   .theme-dark .brand-lockup.compact .brand-copy,.theme-dark .profile-copy,.theme-dark nav a span,.theme-dark .logout span{display:none}
   .theme-dark nav a,.theme-dark .logout{justify-content:center}
 }
+
+/* Alternância de tema na sidebar */
+.theme-toggle{min-height:38px;border:0;border-radius:9px;background:transparent;color:#9fb3c5;display:flex;align-items:center;gap:9px;padding:9px 11px;font-size:10px;font-weight:700;cursor:pointer;transition:background .16s ease,color .16s ease}
+.theme-toggle:hover{background:rgba(255,255,255,.055);color:#fff}
+.theme-toggle svg{width:16px;height:16px}
+.sidebar-collapsed .theme-toggle{justify-content:center;padding-left:0;padding-right:0}
+.sidebar-collapsed .theme-toggle span{display:none}
+
+/* Tema claro permanece com a identidade premium */
+.theme-light{color:#10263f;background:#f4f7fb}
+.theme-light .main-shell{background:radial-gradient(circle at 100% 0,rgba(11,124,246,.05),transparent 25%),radial-gradient(circle at 82% 4%,rgba(115,220,18,.035),transparent 18%),linear-gradient(180deg,#f8fbfe,#f4f7fb)}
+.theme-light .theme-toggle{color:#9fb3c5}
+.theme-light .theme-toggle:hover{color:#fff}
+
+@media(max-width:760px){
+  .theme-toggle{justify-content:center}
+  .theme-toggle span{display:none}
+}
