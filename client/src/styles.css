@@ -615,3 +615,356 @@ section h3{font-size:12px}.section-title p{font-size:9px;line-height:1.5;color:#
   .agenda-company-result button,.agenda-company-result .blocked{width:100%;min-height:44px}
   .selected-company{align-items:flex-start}
 }
+
+/* =========================================================
+   FONTE DE VERDADE VISUAL — PALETA E CONTRASTE OFICIAIS
+   Baseada nas telas mobile aprovadas: Login, Dashboard, Agenda
+   ========================================================= */
+.theme-dark{
+  --ui-bg:#061523;
+  --ui-bg-deep:#04111d;
+  --ui-surface:#0d2234;
+  --ui-surface-2:#10283d;
+  --ui-surface-3:#153149;
+  --ui-border:#24435b;
+  --ui-border-strong:#315873;
+  --ui-text:#f3f7fb;
+  --ui-text-2:#c5d3df;
+  --ui-text-3:#8fa4b6;
+  --ui-blue:#1287ff;
+  --ui-blue-2:#0872dc;
+  --ui-green:#27c77b;
+  --ui-lime:#71dc12;
+  --ui-red:#ef5262;
+  --ui-purple:#8b61f5;
+  --ui-cyan:#20bdd2;
+  --ui-gold:#f1b52b;
+  --ui-shadow:0 10px 28px rgba(0,0,0,.22);
+  background:var(--ui-bg);
+  color:var(--ui-text);
+}
+
+.theme-dark .main-shell{
+  background:
+    radial-gradient(circle at 100% 0,rgba(18,135,255,.075),transparent 26%),
+    radial-gradient(circle at 8% 12%,rgba(113,220,18,.025),transparent 20%),
+    linear-gradient(180deg,#071a2a 0%,var(--ui-bg) 38%,var(--ui-bg-deep) 100%)!important;
+  color:var(--ui-text)!important;
+}
+.theme-dark .mobile-topbar,
+.theme-dark .mobile-bottom-nav{
+  background:rgba(5,24,39,.97)!important;
+  border-color:#1d3c55!important;
+  color:var(--ui-text)!important;
+}
+.theme-dark .mobile-topbar{box-shadow:0 8px 26px rgba(0,0,0,.2)}
+.theme-dark .mobile-brand .brand-copy b{color:#fff!important}
+.theme-dark .mobile-brand .brand-copy span{display:block!important;color:#b7c8d7!important}
+.theme-dark .mobile-theme,.theme-dark .mobile-logout,.theme-dark .mobile-profile{
+  background:#10283d!important;
+  border:1px solid #203f58!important;
+  color:#dce7f0!important;
+}
+.theme-dark .mobile-bottom-nav a{color:#9bb0c2!important}
+.theme-dark .mobile-bottom-nav a svg{color:currentColor!important}
+.theme-dark .mobile-bottom-nav a.active{
+  background:linear-gradient(135deg,var(--ui-blue),#0874df)!important;
+  color:#fff!important;
+  box-shadow:0 7px 18px rgba(18,135,255,.28)!important;
+}
+
+/* Hierarquia de superfícies */
+.theme-dark section,
+.theme-dark .metric,
+.theme-dark .company-result-card,
+.theme-dark .deal,
+.theme-dark .week,
+.theme-dark .month,
+.theme-dark .day-calendar,
+.theme-dark .agenda-list,
+.theme-dark .visit-form,
+.theme-dark .follow-box,
+.theme-dark .tabs-section,
+.theme-dark .visit-summary,
+.theme-dark .visit-register,
+.theme-dark .company-info,
+.theme-dark .negotiation-card,
+.theme-dark .profile-card,
+.theme-dark .google-profile,
+.theme-dark .edit-company{
+  background:linear-gradient(180deg,var(--ui-surface-2),var(--ui-surface))!important;
+  border-color:var(--ui-border)!important;
+  color:var(--ui-text)!important;
+  box-shadow:var(--ui-shadow)!important;
+}
+.theme-dark .page-header{border-bottom-color:#193349!important}
+.theme-dark .page-heading h1,.theme-dark h1,.theme-dark h2,.theme-dark h3,.theme-dark h4,
+.theme-dark label,.theme-dark strong{color:var(--ui-text)!important}
+.theme-dark p,.theme-dark .muted-text,.theme-dark small{color:var(--ui-text-3)}
+.theme-dark .page-heading p,.theme-dark header p{color:#9eb1c1!important}
+.theme-dark .page-eyebrow{color:#8ea6b8!important}
+.theme-dark .page-eyebrow i{background:var(--ui-lime)!important}
+
+/* Inputs: sempre fundo escuro + texto claro + placeholder legível */
+.theme-dark input,
+.theme-dark select,
+.theme-dark textarea{
+  background:#071827!important;
+  border-color:#2b4a62!important;
+  color:#eef5fa!important;
+  caret-color:#fff;
+}
+.theme-dark input::placeholder,
+.theme-dark textarea::placeholder{
+  color:#7f96a9!important;
+  opacity:1!important;
+}
+.theme-dark input:disabled,.theme-dark select:disabled,.theme-dark textarea:disabled{
+  background:#0b1a27!important;
+  color:#708799!important;
+  border-color:#1d3549!important;
+  opacity:1!important;
+}
+.theme-dark input:focus,.theme-dark select:focus,.theme-dark textarea:focus{
+  border-color:var(--ui-blue)!important;
+  box-shadow:0 0 0 3px rgba(18,135,255,.15)!important;
+  outline:none!important;
+}
+.theme-dark select option{background:#0b1c2b;color:#eef5fa}
+
+/* Botões */
+.theme-dark .primary{
+  background:linear-gradient(135deg,var(--ui-blue),var(--ui-blue-2))!important;
+  color:#fff!important;
+  border:0!important;
+  box-shadow:0 7px 18px rgba(18,135,255,.23)!important;
+}
+.theme-dark .primary:hover{filter:brightness(1.06)}
+.theme-dark .outline{
+  background:#10283d!important;
+  color:#dceaf4!important;
+  border-color:#31536d!important;
+}
+.theme-dark .outline:hover{background:#153149!important;border-color:#477395!important;color:#fff!important}
+.theme-dark .text-button{color:#68b7ff!important}
+.theme-dark button:disabled,.theme-dark .blocked{
+  background:#182838!important;
+  color:#7890a3!important;
+  border-color:#263d51!important;
+  opacity:1!important;
+}
+
+/* Dashboard — mesmas famílias cromáticas da referência */
+.theme-dark .metric{
+  background:linear-gradient(180deg,#132d43,#10263a)!important;
+  border-color:#23455f!important;
+}
+.theme-dark .metric b{color:#fff!important}
+.theme-dark .metric span{color:#c0cfdb!important}
+.theme-dark .metric i{box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 5px 14px rgba(0,0,0,.14)!important}
+.theme-dark .metric i.orange{background:#604817!important;color:#ffd65c!important}
+.theme-dark .metric i.blue{background:#083f70!important;color:#48a9ff!important}
+.theme-dark .metric i.green{background:#0d5039!important;color:#65e5aa!important}
+.theme-dark .metric i.red{background:#672531!important;color:#ff8b98!important}
+.theme-dark .metric i.purple{background:#422b75!important;color:#b997ff!important}
+.theme-dark .metric i.cyan{background:#0b5260!important;color:#67e5f2!important}
+.theme-dark .legend{color:#9eb1c1!important}
+.theme-dark .bars{border-bottom-color:#25445d!important}
+.theme-dark .barset i{background:#45a5ff!important}
+.theme-dark .barset i:nth-child(2){background:#2fc983!important}
+.theme-dark .barset i:nth-child(3){background:#ef5d6c!important}
+.theme-dark .donut{background:conic-gradient(var(--ui-green) 0 32%,var(--ui-red) 32% 55%,var(--ui-blue) 55% 100%)!important}
+.theme-dark .donut:before{background:#0d2234!important}
+.theme-dark .donut b{color:#fff!important}
+.theme-dark .donut small,.theme-dark .donut-legend{color:#c5d3df!important}
+
+/* Agenda — cores da referência */
+.theme-dark .agenda-tabs,
+.theme-dark .tabs,
+.theme-dark .config-tabs{
+  background:#081a29!important;
+  border-color:#213e56!important;
+}
+.theme-dark .agenda-head .tabs button,
+.theme-dark .tabs button,
+.theme-dark .tabs span,
+.theme-dark .tabs b,
+.theme-dark .config-tabs button{
+  color:#a4b6c5!important;
+}
+.theme-dark .agenda-head .tabs button.active,
+.theme-dark .tabs button.active,
+.theme-dark .tabs .active,
+.theme-dark .config-tabs button.active,
+.theme-dark .tabs b{
+  background:#12314b!important;
+  color:#6ebaff!important;
+  box-shadow:inset 0 0 0 1px #29516f,0 3px 9px rgba(0,0,0,.16)!important;
+}
+.theme-dark .agenda-nav{
+  background:#0b2032!important;
+  border-color:#25445d!important;
+}
+.theme-dark .agenda-nav button,.theme-dark .agenda-nav b{color:#d7e4ee!important}
+.theme-dark .mobile-day-summary{
+  background:#0b2032!important;
+  border-color:#24455f!important;
+}
+.theme-dark .mobile-day-summary b{color:#fff!important}
+.theme-dark .mobile-day-summary span{color:#9eb1c1!important}
+.theme-dark .mobile-agenda-event{
+  background:linear-gradient(180deg,#133149,#10283c)!important;
+  border-color:#284a65!important;
+  border-left-color:#29a1ff!important;
+  color:#fff!important;
+}
+.theme-dark .mobile-agenda-event.return{border-left-color:#9a70ff!important}
+.theme-dark .mobile-event-time{border-right-color:#28465f!important}
+.theme-dark .mobile-event-time b,.theme-dark .mobile-event-copy b{color:#fff!important}
+.theme-dark .mobile-event-time span,.theme-dark .mobile-event-copy small{color:#a8bac9!important}
+.theme-dark .mobile-event-copy strong{color:#5db5ff!important}
+.theme-dark .mobile-agenda-event.return .mobile-event-copy strong{color:#b99cff!important}
+.theme-dark .cal-event.visit{background:#103d60!important;color:#eaf6ff!important;border-left-color:#2fa7ff!important}
+.theme-dark .cal-event.return{background:#35285f!important;color:#f0eaff!important;border-left-color:#9c79ff!important}
+
+/* Funil */
+.theme-dark .lane{border-color:#28445b!important}
+.theme-dark .lane-prospeccao{background:linear-gradient(180deg,#102a41,#0d2234)!important}
+.theme-dark .lane-agendamento{background:linear-gradient(180deg,#241f46,#171a31)!important}
+.theme-dark .lane-negociacao{background:linear-gradient(180deg,#342817,#221d13)!important}
+.theme-dark .lane-venda_ganha{background:linear-gradient(180deg,#123626,#0d241d)!important}
+.theme-dark .lane-venda_perdida{background:linear-gradient(180deg,#381e25,#25171c)!important}
+.theme-dark .lane-title h3{color:#f4f8fb!important}
+.theme-dark .lane-title span{background:#173249!important;color:#c2d4e2!important}
+.theme-dark .deal{background:linear-gradient(180deg,#142e45,#10263a)!important;border-color:#2b4d67!important}
+.theme-dark .deal-head b,.theme-dark .deal-details b{color:#f5f9fc!important}
+.theme-dark .deal-head small,.theme-dark .deal-details small,.theme-dark .deal-email{color:#95aabd!important}
+
+/* Empresa / Histórico */
+.theme-dark .history{color:#d7e4ee!important;border-bottom-color:#254057!important}
+.theme-dark .history:nth-child(even){background:#0a1b2a!important}
+.theme-dark .history b{color:#f1f6fa!important}
+.theme-dark .data-grid span,.theme-dark .mini-stats>div,.theme-dark .value-summary span{
+  background:#0a1b2a!important;
+  border-color:#233f56!important;
+  color:#9fb1c1!important;
+}
+.theme-dark .data-grid b,.theme-dark .mini-stats b,.theme-dark .value-summary b{color:#f2f7fb!important}
+
+/* Acompanhamento — corrige os blocos brancos/vazios do print */
+.theme-dark .follow-box{background:linear-gradient(180deg,#112a40,#0d2234)!important}
+.theme-dark .contact-types{
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(86px,1fr));
+  gap:8px!important;
+}
+.theme-dark .contact-types button{
+  width:100%!important;
+  height:64px!important;
+  min-height:64px!important;
+  background:#0b1d2c!important;
+  border:1px solid #31506a!important;
+  color:#c9d7e2!important;
+  border-radius:10px!important;
+  font-weight:700!important;
+}
+.theme-dark .contact-types button svg{
+  color:#87a3b8!important;
+  width:19px!important;
+  height:19px!important;
+}
+.theme-dark .contact-types button.selected{
+  background:#113b5f!important;
+  border-color:#299cff!important;
+  color:#73c0ff!important;
+  box-shadow:0 0 0 2px rgba(41,156,255,.11)!important;
+}
+.theme-dark .contact-types button.selected svg{color:#56b3ff!important}
+.theme-dark .follow-box label{color:#edf5fb!important}
+.theme-dark .follow-box textarea,
+.theme-dark .follow-box input{
+  background:#071827!important;
+  color:#f0f6fa!important;
+  border-color:#31506a!important;
+}
+.theme-dark .follow-box textarea::placeholder{color:#839aad!important}
+
+/* Estados semânticos */
+.theme-dark .success{background:#0d3527!important;border-color:#286649!important;color:#a2ebc3!important}
+.theme-dark .warn-box{background:#392b14!important;border-color:#765b27!important;color:#f3d58c!important}
+.theme-dark .badge.prospeccao{background:#123c5d!important;color:#79c7ff!important}
+.theme-dark .badge.agendamento{background:#34265b!important;color:#bda8ff!important}
+.theme-dark .badge.negociacao{background:#513716!important;color:#ffd082!important}
+.theme-dark .badge.venda_ganha{background:#123d2c!important;color:#8be4b1!important}
+.theme-dark .badge.venda_perdida{background:#51222b!important;color:#ff9eaa!important}
+.theme-dark .badge.available{background:#153249!important;color:#b9d5e8!important}
+
+/* Tabelas / configurações */
+.theme-dark .tag-table,.theme-dark .users-table{border-color:#254259!important;color:#dbe7f0!important}
+.theme-dark .tag-table>*:nth-child(-n+4),.theme-dark .users-table>*:nth-child(-n+5){
+  background:#0a1b2a!important;color:#b7c8d6!important
+}
+.theme-dark .tag-table>*,.theme-dark .users-table>*{border-bottom-color:#203b51!important}
+
+/* Light theme coerente, sem texto claro sobre claro */
+.theme-light{
+  --ui-light-bg:#f3f7fb;
+  --ui-light-surface:#ffffff;
+  --ui-light-surface-2:#f8fbfe;
+  --ui-light-border:#d7e2ec;
+  --ui-light-text:#10263f;
+  --ui-light-text-2:#4f657b;
+  --ui-light-text-3:#71869a;
+}
+.theme-light .main-shell{color:var(--ui-light-text)!important}
+.theme-light section,.theme-light .metric,.theme-light .company-result-card,.theme-light .deal,
+.theme-light .visit-form,.theme-light .follow-box,.theme-light .tabs-section{
+  background:#fff!important;border-color:var(--ui-light-border)!important;color:var(--ui-light-text)!important
+}
+.theme-light input,.theme-light select,.theme-light textarea{
+  background:#fff!important;border-color:#cbd9e6!important;color:#17304a!important
+}
+.theme-light input::placeholder,.theme-light textarea::placeholder{color:#74889b!important;opacity:1!important}
+.theme-light .contact-types button{
+  background:#fff!important;border-color:#cbd9e6!important;color:#385269!important
+}
+.theme-light .contact-types button svg{color:#617d95!important}
+.theme-light .contact-types button.selected{
+  background:#e9f4ff!important;border-color:#1687f5!important;color:#0878d7!important
+}
+
+/* Mobile: contraste e densidade da referência aprovada */
+@media(max-width:760px){
+  .theme-dark .main-shell{padding-top:82px!important}
+  .theme-dark section{border-radius:14px!important}
+  .theme-dark .contact-types{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  .theme-dark .contact-types button{
+    height:62px!important;
+    min-height:62px!important;
+    font-size:13px!important;
+  }
+  .theme-dark .follow-box textarea{min-height:118px!important}
+  .theme-dark .tabs-section>.tabs,
+  .theme-dark .visit-register>.tabs{
+    background:#081a29!important;
+    border:1px solid #24435b!important;
+    border-radius:11px!important;
+    padding:5px!important;
+  }
+  .theme-dark .tabs-section>.tabs button,
+  .theme-dark .visit-register>.tabs button,
+  .theme-dark .visit-register>.tabs span,
+  .theme-dark .visit-register>.tabs b{
+    color:#a8bac9!important;
+    min-width:max-content;
+  }
+  .theme-dark .tabs-section>.tabs button.active,
+  .theme-dark .visit-register>.tabs .active,
+  .theme-dark .visit-register>.tabs b{
+    background:#13314a!important;
+    color:#65b7ff!important;
+  }
+}
