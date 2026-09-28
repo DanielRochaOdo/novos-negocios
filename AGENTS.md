@@ -600,6 +600,13 @@ Não apagar histórico.
 
 ## 18. Regras técnicas de implementação
 
+### Sessão autenticada atrás da Vercel
+- o Express deve confiar no proxy da Vercel (`app.set("trust proxy", 1)`) antes de registrar o middleware de sessão;
+- `express-session` deve usar `proxy: true` em produção/serverless para permitir emissão correta de cookie `Secure` atrás do proxy HTTPS;
+- cookie de sessão: `Secure` em produção, `HttpOnly`, `SameSite=Lax`, `Path=/`;
+- um `401` isolado em `/api/me` antes do login é esperado; `401` após login bem-sucedido indica falha de cookie/sessão e deve ser tratado como regressão;
+- validar em produção que a resposta de `POST /api/auth/login` contém `Set-Cookie` e que a chamada seguinte a `GET /api/me` retorna o usuário autenticado.
+
 ### Deploy na Vercel
 - o frontend Vite gera artefatos em `dist/public`; a Vercel deve publicar exatamente esse diretório;
 - `vercel.json` precisa declarar `buildCommand: npm run build` e `outputDirectory: dist/public`;
