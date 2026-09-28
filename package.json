@@ -25,9 +25,7 @@
     "recharts": "latest",
     "wouter": "latest",
     "zod": "latest",
-    "dotenv": "latest",
-    "connect-pg-simple": "latest",
-    "pg": "latest"
+    "dotenv": "latest"
   },
   "devDependencies": {
     "@types/express": "latest",
@@ -38,7 +36,6 @@
     "drizzle-kit": "latest",
     "tsx": "latest",
     "typescript": "latest",
-    "vite": "latest",
-    "@types/pg": "latest"
+    "vite": "latest"
   }
 }
