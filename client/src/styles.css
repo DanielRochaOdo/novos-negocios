@@ -597,3 +597,21 @@ section h3{font-size:12px}.section-title p{font-size:9px;line-height:1.5;color:#
   .mobile-event-time b{font-size:12px}
   .mobile-event-copy b{font-size:10.5px}
 }
+
+/* Busca global preventiva de empresas */
+.company-create-flow{display:grid;gap:14px}.company-search-label{display:grid;gap:7px;font-size:10px}.lookup-note{font-size:9px;color:#7e93a7}.lookup-title{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:2px 1px 8px}.lookup-title b{font-size:11px}.lookup-title span{font-size:8px;color:#7d91a4}.duplicate-results{display:grid;gap:8px}.lookup-company{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;border:1px solid #dce6ef;background:#fff;border-radius:10px;padding:11px}.lookup-company>div:first-child{display:grid;gap:3px;min-width:0}.lookup-company b{font-size:11px}.lookup-company span,.lookup-company small{font-size:8px;color:#72869a}.lookup-company.locked{border-color:#efd8da;background:#fffafb}.new-company-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding-top:4px}.new-company-fields h3{grid-column:1/-1;margin:0}.new-company-fields>button{grid-column:1/-1;justify-self:end}.disabled-section{opacity:.55}.company-locked{border-color:#ebd8da}.company-locked .company-avatar{filter:grayscale(.25)}
+.agenda-company-lookup{display:grid;gap:7px}.agenda-company-lookup>label{display:grid;gap:6px}.agenda-company-results{display:grid;gap:6px;max-height:240px;overflow:auto;padding-right:2px}.agenda-company-result{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;align-items:center;border:1px solid #dce6ef;border-radius:9px;padding:9px;background:#fff}.agenda-company-result>div:first-child{display:grid;gap:2px;min-width:0}.agenda-company-result b{font-size:10px}.agenda-company-result span,.agenda-company-result small{font-size:8px;color:#74879a}.agenda-company-result.locked{background:#fff9fa;border-color:#ead3d7}.selected-company{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #b9ddc7;background:#f2fbf5;border-radius:9px;padding:9px 10px}.selected-company>div{display:grid;gap:2px}.selected-company b{font-size:10px}.selected-company span{font-size:8px;color:#647b6d}.create-from-search{justify-self:start}
+.theme-dark .lookup-company,.theme-dark .agenda-company-result{background:#0d1b2a;border-color:#274057}.theme-dark .lookup-company.locked,.theme-dark .agenda-company-result.locked{background:#2b171c;border-color:#63313b}.theme-dark .lookup-company span,.theme-dark .lookup-company small,.theme-dark .agenda-company-result span,.theme-dark .agenda-company-result small{color:#8fa6b9}.theme-dark .selected-company{background:#0d2a20;border-color:#235c43}.theme-dark .selected-company span{color:#8fb7a0}.theme-dark .company-locked{border-color:#58303a}
+
+@media(max-width:760px){
+  .lookup-title{display:grid;gap:3px}
+  .lookup-company{grid-template-columns:1fr;padding:11px}
+  .lookup-company>div:last-child,.lookup-company .outline,.lookup-company .primary,.lookup-company .blocked{width:100%}
+  .new-company-fields{grid-template-columns:1fr}
+  .new-company-fields h3,.new-company-fields>button{grid-column:1}
+  .new-company-fields>button{width:100%}
+  .agenda-company-results{max-height:300px}
+  .agenda-company-result{grid-template-columns:1fr}
+  .agenda-company-result button,.agenda-company-result .blocked{width:100%;min-height:44px}
+  .selected-company{align-items:flex-start}
+}
