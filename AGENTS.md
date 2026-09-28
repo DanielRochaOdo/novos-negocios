@@ -536,7 +536,23 @@ Ao corrigir:
 - confirmar que Gestor pode criar/reagendar/editar compromisso em nome de vendedor;
 - confirmar que pesquisa de empresas oferece ao vendedor próprias + disponíveis, sem expor tomada indevida de carteira ativa.
 
-## 20. Critério de pronto
+## 20. Regras adicionais confirmadas — visita encerrada e manipulação via Funil
+
+- Depois que uma visita recebe resultado final de registro (realizada/proposta, reagendada, não recebeu, venda ganha ou venda perdida), esse registro torna-se histórico e **não pode mais ser editado/re-registrado**.
+- Reagendou: a visita antiga deve mostrar explicitamente a nova visita, data/hora e link/referência para ela.
+- Não recebeu: a visita antiga deve informar explicitamente se houve ou não nova visita; havendo, mostrar data/hora e referência; não havendo, informar retorno à Prospecção.
+- Venda Perdida: registro fica encerrado, mostra motivo e informa disponibilidade para nova prospecção.
+- Venda Ganha: registro fica encerrado e informa que a empresa permanece vinculada ao vendedor até liberação do Gestor.
+- O backend deve rejeitar tentativa de registrar novamente uma visita cujo status não seja AGENDADA.
+- O Funil é manipulável por drag-and-drop, mas arrastar um card **não contorna regras comerciais**.
+- Prospecção → Agendamento exige criação de visita/data/hora.
+- Agendamento/Prospecção → Negociação exige fluxo equivalente ao registro de entrega de proposta e seus campos obrigatórios.
+- Movimento para Venda Ganha exige os mesmos campos/validações da visita ganha.
+- Movimento para Venda Perdida exige motivo e o mesmo registro histórico da perda.
+- Venda Ganha → Prospecção continua exclusiva do Gestor por meio de liberação.
+- Quando o drop exigir dados adicionais, a UI deve encaminhar o usuário ao fluxo correspondente em vez de simplesmente alterar a coluna no banco.
+
+## 21. Critério de pronto
 
 Uma funcionalidade só está pronta quando:
 - UI corresponde à referência aprovada;
