@@ -80,6 +80,22 @@ Ao alterar UI, comparar explicitamente com essa referência. Funcionalidade não
 - o colapso deve reduzir fisicamente a largura da sidebar em **ambos os temas** (claro e escuro), sem manter uma faixa vazia larga; ícones, avatar e ações ficam centralizados em botões compactos;
 - em telas pequenas, a sidebar permanece compacta.
 
+### Mobile-first operacional
+- cerca de **90% do uso previsto é via celular**; toda alteração de UI deve ser validada primeiro em viewport mobile e depois em desktop;
+- breakpoint principal de smartphone: até 760px, com suporte mínimo a 320px de largura;
+- no mobile, a sidebar desktop é substituída por cabeçalho compacto e navegação inferior fixa para Dashboard, Agenda, Funil, Empresas e Configurações quando aplicável;
+- Perfil, alternância de tema e logout permanecem acessíveis no topo mobile;
+- botões e alvos de toque devem ter aproximadamente 44px ou mais sempre que possível;
+- inputs no mobile devem evitar zoom automático do navegador;
+- Dashboard deve reorganizar KPIs e gráficos sem cortar conteúdo;
+- Agenda deve abrir em **Dia** por padrão no celular; Semana e Mês permanecem acessíveis com rolagem horizontal controlada;
+- Funil no celular deve permitir navegação horizontal por swipe e não pode depender exclusivamente de drag-and-drop, pois toque não oferece DnD HTML5 confiável; cada card deve oferecer ação de mover estágio por toque, preservando as mesmas validações comerciais;
+- cards de Empresas, detalhes de Empresa, Visita, Acompanhamento, Perfil e formulários devem usar uma coluna ou grade compacta adaptativa;
+- abas extensas devem rolar horizontalmente sem estourar o viewport;
+- tabelas administrativas podem usar rolagem horizontal interna, nunca provocar scroll horizontal da página inteira;
+- considerar safe-area de iPhone/Android para barras fixas;
+- nenhuma tela pode exigir zoom manual para leitura, edição ou ação principal.
+
 ### Lembrar de mim
 - o checkbox **Lembrar de mim** deve ter efeito real no backend;
 - marcado: sessão autenticada com expiração de 30 dias, persistida no PostgreSQL/Neon para sobreviver a reinícios do servidor;
