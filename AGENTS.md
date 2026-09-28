@@ -70,6 +70,8 @@ Ao alterar UI, comparar explicitamente com essa referência. Funcionalidade não
 
 ### Tema escuro e sidebar
 - o sistema autenticado usa **tema escuro por padrão**, preservando a identidade Odontoart (azul-marinho, azul de ação e verde institucional);
+- entre o bloco do usuário e o botão **Sair** na sidebar deve existir um controle Sun/Moon para alternar entre tema escuro e claro;
+- o tema escolhido deve ser persistido localmente no navegador e restaurado nas próximas visitas;
 - superfícies, calendário, Kanban, formulários, tabelas, Perfil e Configurações precisam ter contraste adequado no modo escuro;
 - a sidebar inicia **colapsada por padrão** em novos navegadores/sessões;
 - o usuário pode expandir/recolher a sidebar por um controle explícito;
