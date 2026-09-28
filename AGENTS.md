@@ -22,6 +22,10 @@ Módulos:
 Existe somente uma Agenda. Qualquer duplicação anterior no documento original era erro de redação.
 
 Timezone canônico de TODO o sistema: **America/Fortaleza**.
+- em deploys Vercel, não usar a variável reservada `TZ`; configurar `APP_TIMEZONE=America/Fortaleza`;
+- valores vindos de `datetime-local` sem offset devem ser interpretados explicitamente como horário de Fortaleza no backend, nunca no timezone implícito do servidor;
+- datas/horas exibidas no frontend devem formatar explicitamente com `timeZone: "America/Fortaleza"` para evitar divergência em dispositivos ou runtimes fora desse fuso;
+- Google Calendar deve receber os mesmos instantes já normalizados e declarar `America/Fortaleza` no evento.
 Banco: PostgreSQL/Neon.
 Frontend: React + Vite + TypeScript.
 Backend: Express + TypeScript.
