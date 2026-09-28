@@ -472,9 +472,12 @@ Não criar aba visual sem comportamento.
 - aviso/antecedência quando configurável.
 
 ### Integrações
-- estado da conexão Google por usuário;
-- ação de conectar/reconectar;
-- feedback de sucesso/erro.
+- Configurações continua exclusiva do Gestor;
+- Gestor pode visualizar o estado das integrações dos vendedores, mas não autoriza a conta Google por eles;
+- cada Vendedor conecta/reconecta SUA PRÓPRIA conta Google em **Perfil → Google Agenda**;
+- a autorização manual acontece uma vez; depois Visitas e Retornos sincronizam automaticamente;
+- Perfil deve mostrar Conectado/Desconectado e Conectar/Reconectar;
+- feedback de sucesso/erro do OAuth retorna para Perfil, nunca exige acesso do Vendedor a Configurações.
 
 ## 17. Auditoria
 
