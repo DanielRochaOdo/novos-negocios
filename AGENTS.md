@@ -519,6 +519,17 @@ Dashboard do Gestor pode consolidar equipe e filtrar vendedores.
 
 ## 15. Empresas
 
+### Performance e paginação da listagem
+- a tela **Empresas** não deve carregar toda a base de uma vez;
+- a listagem padrão e a busca global dentro da tela Empresas usam paginação server-side;
+- carregar **50 empresas por página**;
+- o backend deve retornar itens da página, total de registros, página atual e total de páginas;
+- busca por nome/CNPJ continua global, mas também paginada em lotes de 50;
+- Agenda e fluxo de Nova Empresa podem continuar usando a busca global sem envelope paginado quando precisarem de autocomplete, preservando compatibilidade;
+- ao trocar o termo de busca, voltar para a página 1;
+- exibir ao usuário o intervalo atual (ex.: 51–100 de 1.984) e controles Anterior/Próxima;
+- não consultar tags de todas as empresas quando apenas uma página está sendo exibida; limitar dados relacionados aos IDs carregados na página.
+
 Pesquisa deve mostrar contexto, não apenas nome:
 - estágio/tag automática;
 - até 2 tags comerciais recentes;
