@@ -34,7 +34,7 @@ O conjunto de 10 telas aprovado pelo usuário é a referência visual oficial. N
 
 Características obrigatórias:
 - sidebar esquerda azul-marinho escuro;
-- no topo da sidebar usar o logotipo oficial Odontoart/Novos Negócios em formato horizontal, com ícone verde à esquerda e lettering branco/cinza, usando como referência/asset `https://i0.wp.com/odontoart.com/wp-content/uploads/2024/03/odontoart%405x.png?fit=768%2C261&ssl=1`;
+- no topo da sidebar usar o lockup completo **Odontoart / Novos Negócios**: bloco verde com a marca oficial à esquerda + textos “Odontoart” e “Novos Negócios” à direita, sobre o fundo azul-marinho; o nome do sistema nunca pode desaparecer; usar como asset interno da marca `https://i0.wp.com/odontoart.com/wp-content/uploads/2024/03/odontoart%405x.png?fit=768%2C261&ssl=1`;
 - marca Odontoart / Novos Negócios no topo;
 - fundo principal branco/cinza muito claro;
 - azul como cor primária de botões e navegação ativa;
@@ -46,6 +46,12 @@ Características obrigatórias:
 - Agenda com aparência de calendário profissional;
 - Kanban com colunas coloridas;
 - desktop-first, responsivo sem descaracterizar a referência.
+
+
+### Login
+- a tela de Login deve reutilizar o mesmo lockup completo Odontoart / Novos Negócios;
+- manter apresentação premium/profissional, com painel institucional azul-marinho, bloco verde da marca, hierarquia forte e formulário claro em card branco;
+- evitar login genérico ou aparência de template cru.
 
 Telas visuais aprovadas:
 1. Login.
