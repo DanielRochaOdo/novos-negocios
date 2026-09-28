@@ -45,7 +45,7 @@ Características obrigatórias:
 - Dashboard com cards, gráfico de barras e donut;
 - Agenda com aparência de calendário profissional;
 - Kanban com colunas coloridas;
-- desktop-first, responsivo sem descaracterizar a referência.
+- **mobile-first**, com experiência desktop expandida sem descaracterizar a referência.
 
 
 ### Login
@@ -79,6 +79,16 @@ Ao alterar UI, comparar explicitamente com essa referência. Funcionalidade não
 - quando colapsada, mostrar ícones, marca e tooltips/títulos suficientes para manter a navegação compreensível;
 - o colapso deve reduzir fisicamente a largura da sidebar em **ambos os temas** (claro e escuro), sem manter uma faixa vazia larga; ícones, avatar e ações ficam centralizados em botões compactos;
 - em telas pequenas, a sidebar permanece compacta.
+
+### Referência visual mobile aprovada
+- a composição mobile gerada e aprovada nesta conversa passa a ser a referência visual oficial para smartphones;
+- ela contém somente módulos e ações existentes no produto: Login, Dashboard, Agenda, Funil de Vendas, Empresa e Visita;
+- Login mobile é uma coluna, com marca/hero e formulário legível, nunca duas colunas desktop reduzidas;
+- Dashboard mobile usa KPIs em 2 colunas, gráficos empilhados e navegação inferior;
+- Agenda mobile usa Dia como visão principal com cards de Visita/Retorno e mantém Dia/Semana/Mês/Lista;
+- Funil mobile usa seletor das 5 etapas no topo e exibe os cards da etapa ativa; mudança de estágio por toque usa “Mover para...” e as mesmas validações do desktop;
+- Empresa e Visita são fluxos verticais, com ações grandes e informações reais já disponíveis no sistema;
+- não adicionar no mobile elementos fictícios, dados inventados ou ações que não possam ser reproduzidas pela implementação real.
 
 ### Mobile-first operacional
 - cerca de **90% do uso previsto é via celular**; toda alteração de UI deve ser validada primeiro em viewport mobile e depois em desktop;
