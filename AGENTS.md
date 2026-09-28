@@ -77,6 +77,7 @@ Ao alterar UI, comparar explicitamente com essa referência. Funcionalidade não
 - o usuário pode expandir/recolher a sidebar por um controle explícito;
 - a preferência de sidebar pode ser preservada localmente no navegador;
 - quando colapsada, mostrar ícones, marca e tooltips/títulos suficientes para manter a navegação compreensível;
+- o colapso deve reduzir fisicamente a largura da sidebar em **ambos os temas** (claro e escuro), sem manter uma faixa vazia larga; ícones, avatar e ações ficam centralizados em botões compactos;
 - em telas pequenas, a sidebar permanece compacta.
 
 ### Lembrar de mim
