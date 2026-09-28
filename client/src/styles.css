@@ -293,3 +293,13 @@ section h3{font-size:12px}.section-title p{font-size:9px;line-height:1.5;color:#
   .sidebar-expanded .brand-lockup.compact .brand-copy,.sidebar-expanded .profile-copy,.sidebar-expanded nav a span,.sidebar-expanded .theme-toggle span,.sidebar-expanded .logout span{display:none}
   .sidebar-expanded nav a,.sidebar-expanded .profile-link,.sidebar-expanded .theme-toggle,.sidebar-expanded .logout{width:48px;margin-left:auto;margin-right:auto;justify-content:center}
 }
+
+/* Correção: botão de colapso não pode sobrepor a marca */
+.sidebar-top{min-height:88px}
+.sidebar-toggle{top:58px!important;right:-16px!important}
+.sidebar-collapsed .sidebar-brand,.sidebar-expanded .sidebar-brand{position:relative;z-index:1}
+.sidebar-collapsed .sidebar-toggle,.sidebar-expanded .sidebar-toggle{z-index:3}
+@media(max-width:1200px) and (min-width:761px){
+  .sidebar-top{min-height:84px}
+  .sidebar-toggle{top:55px!important}
+}
