@@ -162,6 +162,18 @@ Ao alterar UI, comparar explicitamente com essa referência. Funcionalidade não
 
 Antes de criar empresa ou visita, pesquisar empresa existente e mostrar contexto.
 
+### Busca global preventiva
+- a pesquisa usada durante criação, agendamento e busca explícita é **global**, não filtrada pela carteira do vendedor;
+- ao digitar parte do nome, por exemplo `Odo`, retornar todas as empresas cujo nome contenha esse trecho, independentemente do vendedor responsável;
+- a pesquisa também pode localizar por CNPJ;
+- empresa de outro vendedor ativo deve aparecer no resultado com estágio e vendedor responsável, mas permanecer bloqueada para qualquer ação comercial;
+- o vendedor não pode abrir o cadastro completo, agendar, assumir, editar ou criar duplicata de empresa pertencente a outro vendedor ativo;
+- empresas sem responsável ou em Venda Perdida aparecem como disponíveis para claim;
+- Venda Ganha aparece bloqueada até liberação do Gestor;
+- a listagem padrão de carteira pode continuar restrita ao escopo do vendedor; somente a busca preventiva é global;
+- criação de empresa deve bloquear CNPJ já existente e também nome exatamente igual após normalização de espaços/maiúsculas, orientando o uso do cadastro existente;
+- Gestor pode ver o contexto global, mas agendar para vendedor diferente do proprietário exige reatribuição explícita antes do agendamento; nunca reatribuir silenciosamente ao criar visita.
+
 Estados esperados:
 - inexistente → criar; vendedor vira proprietário; estágio Prospecção;
 - existente e do próprio vendedor → permitir continuar;
