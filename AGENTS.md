@@ -229,6 +229,16 @@ São derivadas do estado do sistema.
 
 Exemplos apenas ilustrativos: Indicação, Instagram, Evento, Prospecção ativa, Parceiro.
 
+### Empresas cadastradas fora do Funil
+- cadastro no banco **não implica** participação automática em um ciclo comercial ativo;
+- empresas importadas em massa podem permanecer com `in_funnel = false`: continuam disponíveis na busca global e prevenção de duplicidade, mas não aparecem no Kanban;
+- empresas criadas manualmente pelo fluxo comercial nascem no Funil;
+- ao vendedor **assumir** uma empresa disponível/importada, ela entra no Funil em Prospecção;
+- ao criar uma visita para a empresa, ela entra/permanece no Funil e passa para Agendamento;
+- reatribuição comercial explícita pelo Gestor também ativa a participação no Funil;
+- o endpoint/listagem do Kanban deve sempre filtrar somente `in_funnel = true`;
+- a busca global nunca deve filtrar por `in_funnel`, pois precisa localizar também a base importada fora do ciclo.
+
 ## 7. Funil de Vendas / Kanban
 
 Colunas:
