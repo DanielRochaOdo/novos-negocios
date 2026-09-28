@@ -552,7 +552,37 @@ Ao corrigir:
 - Venda Ganha → Prospecção continua exclusiva do Gestor por meio de liberação.
 - Quando o drop exigir dados adicionais, a UI deve encaminhar o usuário ao fluxo correspondente em vez de simplesmente alterar a coluna no banco.
 
-## 21. Critério de pronto
+## 21. Melhorias visuais confirmadas — documento melhorias.docx
+
+Estas regras foram acrescentadas a partir do documento de revisão visual enviado pelo usuário e passam a fazer parte da referência obrigatória:
+
+### Agenda
+- o formulário de criação deve permanecer alinhado, compacto e visualmente integrado ao calendário;
+- o acesso ao Perfil/usuário no rodapé da sidebar precisa ter contraste e legibilidade adequados;
+- deve ser possível criar uma visita clicando diretamente em um horário livre nas visualizações Dia e Semana;
+- a visualização **Dia** deve carregar uma grade horária real, e não reutilizar uma lista genérica;
+- a visualização **Lista** deve sempre renderizar os compromissos ou um estado vazio explícito;
+- clicar em um dia na visualização Mês deve levar ao contexto diário daquele dia;
+- horários livres devem comunicar visualmente que são clicáveis para criar visita.
+
+### Funil
+- cards precisam ter apresentação profissional, sem aparência de hyperlink HTML cru;
+- card deve exibir contexto amplo da empresa: nome, endereço, responsável, telefone, CNPJ, funcionários, vendedor, proposta, e-mail quando houver, estágio/tags e prazo quando aplicável;
+- clicar na empresa abre o cadastro para consulta/edição/atualização;
+- drag-and-drop deve parecer **fluido e intuitivo**: card com cursor de arraste, estado visual enquanto é movido, coluna de destino destacada e pré-visualização do card acompanhando a coluna sob o ponteiro;
+- a fluidez visual do drag-and-drop NÃO elimina as validações comerciais já definidas.
+
+### Empresas
+- resultados de pesquisa devem usar cards/linhas estruturadas e profissionais;
+- não exibir nome/status como hyperlinks HTML visualmente crus;
+- mostrar dados de contexto, estado, responsável/vendedor e ações claras.
+
+### Qualidade visual geral
+- evitar aparência de protótipo/amador;
+- manter consistência de bordas, sombras, radius, espaçamentos, estados hover/focus, tipografia e hierarquia;
+- respeitar sempre a referência visual aprovada do produto e estas correções adicionais.
+
+## 22. Critério de pronto
 
 Uma funcionalidade só está pronta quando:
 - UI corresponde à referência aprovada;
