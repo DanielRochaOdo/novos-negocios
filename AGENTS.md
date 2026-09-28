@@ -52,6 +52,7 @@ Características obrigatórias:
 - a tela de Login deve reutilizar o mesmo lockup completo Odontoart / Novos Negócios;
 - manter apresentação premium/profissional, com painel institucional azul-marinho, bloco verde da marca, hierarquia forte e formulário claro em card branco;
 - evitar login genérico ou aparência de template cru.
+- a identidade premium aprovada no Login (azul-marinho institucional, verde Odontoart, superfícies brancas, sombras suaves, cantos arredondados e hierarquia tipográfica forte) deve ser aplicada de forma consistente ao restante do sistema, sem descaracterizar as telas aprovadas.
 
 Telas visuais aprovadas:
 1. Login.
