@@ -978,3 +978,36 @@ section h3{font-size:12px}.section-title p{font-size:9px;line-height:1.5;color:#
 .theme-light .password-toggle{color:#6e8498}
 .theme-light .password-toggle:hover{background:#edf5ff!important;color:#0878d7}
 @media(max-width:760px){.password-toggle{width:40px;height:40px;min-width:40px!important;min-height:40px!important;right:4px}.password-field input{padding-right:50px!important}}
+
+/* Paginação da listagem de empresas */
+.company-page-summary{margin:-2px 0 10px;padding:0 2px;font-size:9px;color:#71869a}
+.company-page-summary b{color:inherit}
+.company-results-grid.is-loading{opacity:.72;pointer-events:none}
+.company-loading{min-height:180px;border:1px solid #dbe5ee;border-radius:14px;background:#fff;display:grid;place-items:center;align-content:center;gap:10px;color:#71869a}
+.company-loading span{width:28px;height:28px;border-radius:50%;border:3px solid #d8e5f0;border-top-color:#0b83ff;animation:company-spin .75s linear infinite}
+.company-loading b{font-size:10px}
+.company-pagination{display:flex;align-items:center;justify-content:center;gap:12px;margin:18px 0 4px}
+.company-pagination>span{min-width:120px;text-align:center;font-size:9px;color:#71869a}
+.company-pagination>span b{color:#17314b}
+.company-pagination .outline{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:110px}
+.company-pagination svg{width:14px;height:14px}
+@keyframes company-spin{to{transform:rotate(360deg)}}
+.theme-dark .company-page-summary{color:#8fa6b9}
+.theme-dark .company-page-summary b{color:#dce8f2}
+.theme-dark .company-loading{background:#0d2234;border-color:#24435b;color:#8fa6b9}
+.theme-dark .company-loading span{border-color:#24435b;border-top-color:#1287ff}
+.theme-dark .company-loading b{color:#c5d3df}
+.theme-dark .company-pagination>span{color:#8fa6b9}
+.theme-dark .company-pagination>span b{color:#edf5fb}
+@media(max-width:760px){
+  .company-page-summary{font-size:9px;margin-bottom:8px}
+  .company-pagination{display:grid;grid-template-columns:1fr auto 1fr;gap:7px;position:relative;margin:14px 0 2px}
+  .company-pagination .outline{min-width:0;width:100%;padding:8px 6px}
+  .company-pagination>span{min-width:0;font-size:8px;white-space:nowrap}
+}
+@media(max-width:390px){
+  .company-pagination{grid-template-columns:1fr 1fr}
+  .company-pagination>span{grid-column:1/-1;grid-row:1;text-align:center}
+  .company-pagination>button:first-child{grid-column:1;grid-row:2}
+  .company-pagination>button:last-child{grid-column:2;grid-row:2}
+}
