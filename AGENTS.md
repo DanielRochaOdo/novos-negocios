@@ -68,6 +68,12 @@ Telas visuais aprovadas:
 
 Ao alterar UI, comparar explicitamente com essa referência. Funcionalidade não justifica abandonar o layout aprovado.
 
+### Lembrar de mim
+- o checkbox **Lembrar de mim** deve ter efeito real no backend;
+- marcado: sessão autenticada com expiração de 30 dias;
+- desmarcado: sessão de navegador;
+- não persistir credenciais sensíveis no frontend para implementar essa função.
+
 ## 3. Perfis e permissões
 
 ### Gestor
