@@ -68,6 +68,20 @@ Telas visuais aprovadas:
 
 Ao alterar UI, comparar explicitamente com essa referência. Funcionalidade não justifica abandonar o layout aprovado.
 
+### Paleta e contraste oficiais
+- as telas mobile aprovadas de Login, Dashboard e Agenda são a **fonte de verdade cromática** do produto;
+- fundo escuro principal: azul-marinho profundo, nunca preto puro;
+- cards/superfícies: azul-marinho mais claro que o fundo, com borda azul-acinzentada discreta;
+- texto principal: branco/quase branco; texto secundário: azul-acinzentado claro; placeholders precisam permanecer legíveis;
+- azul vivo é a cor de ação principal, navegação ativa, CTAs e seleção;
+- verde Odontoart é reservado para marca, sucesso e pequenos acentos;
+- semântica de indicadores: dourado = carteira/empresas; azul = visitas marcadas; verde = realizadas/ganhas; vermelho = não realizadas/perdas; roxo = negociação/retorno; ciano = conversão/indicador complementar;
+- nenhum componente pode usar texto claro em superfície clara ou texto escuro em superfície escura sem contraste suficiente;
+- inputs, selects e textareas no tema escuro usam superfície escura, borda perceptível, texto claro e placeholder visível;
+- estados ativo, selecionado, desabilitado, sucesso, alerta e erro precisam ser visualmente distinguíveis sem depender apenas do texto;
+- componentes de acompanhamento (Ligação, WhatsApp, E-mail, Presencial, Outro) devem seguir o tema atual; nunca podem aparecer como blocos brancos vazios no modo escuro;
+- novas cores não devem ser inventadas isoladamente por tela: reutilizar os tokens globais de fundo, superfície, borda, texto, ação e estados semânticos.
+
 ### Tema escuro e sidebar
 - o sistema autenticado usa **tema escuro por padrão**, preservando a identidade Odontoart (azul-marinho, azul de ação e verde institucional);
 - entre o bloco do usuário e o botão **Sair** na sidebar deve existir um controle Sun/Moon para alternar entre tema escuro e claro;
