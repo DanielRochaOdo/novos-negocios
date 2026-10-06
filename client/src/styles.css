@@ -1011,3 +1011,31 @@ section h3{font-size:12px}.section-title p{font-size:9px;line-height:1.5;color:#
   .company-pagination>button:first-child{grid-column:1;grid-row:2}
   .company-pagination>button:last-child{grid-column:2;grid-row:2}
 }
+
+/* Segurança de conta — alteração e redefinição de senha */
+.password-card{display:grid;gap:12px}
+.password-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:end;max-width:980px}
+.password-form>label,.password-reset-grid>label{display:grid;gap:6px;font-size:10px;font-weight:700}
+.password-form>.primary{min-height:44px;justify-self:start}
+.user-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.password-reset-link{font-weight:700}
+.password-reset-panel{margin-top:14px;padding:14px;border:1px solid #dbe5ee;border-radius:12px;background:#f8fbfd}
+.password-reset-panel .section-title{margin-bottom:10px}
+.password-reset-grid{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end}
+.password-reset-grid>.primary{min-height:44px}
+.theme-dark .password-card,.theme-dark .password-reset-panel{background:linear-gradient(180deg,#10283d,#0d2234)!important;border-color:#24435b!important}
+.theme-dark .password-reset-panel{box-shadow:none!important}
+.theme-dark .password-reset-link{color:#6ebaff!important}
+@media(max-width:900px){
+  .password-form{grid-template-columns:1fr 1fr}
+  .password-form>.primary{grid-column:1/-1;width:100%}
+  .password-reset-grid{grid-template-columns:1fr 1fr}
+  .password-reset-grid>.primary{grid-column:1/-1;width:100%}
+}
+@media(max-width:760px){
+  .password-form,.password-reset-grid{grid-template-columns:1fr}
+  .password-form>.primary,.password-reset-grid>.primary{grid-column:1;width:100%;min-height:48px}
+  .password-reset-panel{padding:12px}
+  .user-actions{display:grid;grid-template-columns:1fr;gap:7px}
+  .user-actions .text-button{min-height:40px;padding:8px 0;text-align:left}
+}

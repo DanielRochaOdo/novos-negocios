@@ -105,3 +105,19 @@ class NeonSessionStore extends session.Store {
 }
 
 export const sessionStore = new NeonSessionStore();
+
+export async function destroyUserSessions(userId: number, exceptSid?: string) {
+  await ensureTable();
+  if (exceptSid) {
+    await sql`
+      DELETE FROM user_sessions
+      WHERE sess ->> 'userId' = ${String(userId)}
+        AND sid <> ${exceptSid}
+    `;
+    return;
+  }
+  await sql`
+    DELETE FROM user_sessions
+    WHERE sess ->> 'userId' = ${String(userId)}
+  `;
+}
