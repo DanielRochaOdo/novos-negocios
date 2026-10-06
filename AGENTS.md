@@ -563,6 +563,17 @@ Abas devem ser realmente funcionais:
 
 Não criar aba visual sem comportamento.
 
+### Senhas e segurança de acesso
+- Gestor pode redefinir a senha de qualquer usuário pela aba **Configurações → Usuários**, sem precisar conhecer a senha atual desse usuário;
+- redefinição pelo Gestor deve exigir nova senha com no mínimo 8 caracteres e confirmação no frontend;
+- ao redefinir a senha de outro usuário, encerrar todas as sessões existentes desse usuário;
+- se o Gestor redefinir a própria senha por esse fluxo, preservar apenas a sessão atual e encerrar as demais;
+- qualquer usuário autenticado, incluindo Vendedor, pode alterar a própria senha em **Perfil**;
+- alteração da própria senha exige a senha atual correta, nova senha com no mínimo 8 caracteres e confirmação;
+- nova senha não pode ser igual à senha atual;
+- após alteração da própria senha, preservar a sessão atual e encerrar as demais sessões do mesmo usuário;
+- senhas nunca são retornadas pela API nem armazenadas em texto puro; usar bcrypt com hash de custo 12.
+
 ### Usuários
 - criar Gestor/Vendedor;
 - inativar/reativar;
