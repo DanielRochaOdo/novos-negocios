@@ -8,8 +8,17 @@ Node 20+, PostgreSQL/Neon e credenciais OAuth do Google Calendar.
 ## Instalação
 1. `npm install`
 2. Copie `.env.example` para `.env` e preencha as variáveis.
-3. `npm run db:push`
+3. `npm run db:ensure` (cria/verifica as tabelas necessárias sem apagar dados)
 4. `npm run dev`
+
+## Migração segura do Neon
+
+**Não use `npm run db:push` rotineiramente em produção.** Em uma execução anterior, o Drizzle removeu a tabela `user_sessions` com 31 registros de sessão, pois essa tabela ainda não estava representada no schema. Ela agora está registrada em `shared/schema.ts`.
+
+- Para verificar/criar `user_sessions` e `routines` sem exclusões, rode `npm run db:ensure` com a `DATABASE_URL` do ambiente correto.
+- Migrações futuras precisam ser versionadas e revisadas, sempre com backup do Neon.
+- `npm run db:push` exige `DB_PUSH_ALLOW=SIM_CIENTE_DO_RISCO` e confirmação específica; não aprove operações de perda de dados.
+- A tabela de sessões pode ser recriada, mas sessões excluídas anteriormente não reaparecem: quem perdeu a sessão precisará entrar novamente.
 
 ## Primeiro gestor
 Com o banco vazio, faça uma única requisição `POST /api/auth/bootstrap` com JSON `{"name":"Gestor","email":"seu@email.com","password":"senha-forte"}`. Depois disso o endpoint recusa novos bootstraps.
