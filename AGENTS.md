@@ -777,8 +777,8 @@ Estas regras foram acrescentadas a partir do documento de revisão visual enviad
 - as abas Histórico, Visitas, Tags e Dados da Empresa NÃO podem renderizar o formulário;
 - retorno com próxima data cria compromisso RETORNO na Agenda e pode sincronizar no Google.
 
-### Rotina diária na Agenda (sem novo módulo)
-- a rotina diária fica na própria Agenda, por ser a fonte de atividades datadas;
+### Cadastro da rotina diária do Vendedor na Agenda
+- o cadastro/edição da rotina diária do Vendedor permanece na própria Agenda, por ser a fonte de atividades datadas; o Gestor possui um módulo separado de **visualização consolidada** da equipe, conforme regra abaixo;
 - vendedor cria, edita e cancela atividades com título, tipo (Reunião interna, Atividade interna, Planejamento, Outra), início/fim e observações;
 - dados da rotina ficam em tabela `routines`; cancelamentos preservam registro e auditoria;
 - Gestor tem visão simples da rotina dos vendedores pela Agenda com filtro de vendedor;
