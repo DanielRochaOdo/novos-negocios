@@ -331,6 +331,17 @@ Abre PÁGINA, nunca modal.
 Mostrar empresa, status, 2 tags comerciais recentes, data/hora, vendedor, endereço, responsável e telefone.
 Ação principal: Registrar visita.
 
+### Entrada de data e hora — digitação ou calendário
+- em **todo campo onde o usuário informa data e hora**, permitir digitar livremente no formato brasileiro `dd/mm/aaaa hh:mm` (inclusive no mobile);
+- manter o **ícone de calendário ao lado do campo**: ao clicar/tocar, abrir o seletor nativo de data e hora, sem obrigar o uso do calendário;
+- usar um componente reutilizável para início/fim da rotina, data da visita, próxima data do reagendamento e próximo retorno do acompanhamento;
+- não bloquear datas anteriores ou horários livres do vendedor; visitas retroativas seguem permitidas;
+- validar dia, mês, ano, hora e minuto reais (inclusive anos bissextos), exibindo erro legível antes de salvar;
+- manter internamente a data local em formato `YYYY-MM-DDTHH:mm` e interpretar no backend com `America/Fortaleza`, **sem converter inadvertidamente pelo timezone do dispositivo**;
+- ao limpar ou digitar parcialmente, não conservar escondida no estado a data válida antiga; evitar salvar data diferente da visualizada;
+- tanto tema escuro quanto claro devem oferecer contraste e alvo de toque adequado para campo e ícone;
+- caso o navegador não suporte abrir o seletor por `showPicker()`, oferecer um seletor nativo visível alternativo.
+
 ## 9. Registro da visita
 
 Pergunta: visita foi realizada?
