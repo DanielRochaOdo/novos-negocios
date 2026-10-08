@@ -774,7 +774,17 @@ Estas regras foram acrescentadas a partir do documento de revisão visual enviad
 - blocos de rotina e retornos agendados entram na checagem de conflitos quando uma visita ou outra atividade é marcada;
 - o Funil mostra um resumo da rotina do dia com acesso à Agenda para o vendedor/gestor consultar a ocupação;
 - respeitar `America/Fortaleza`, mobile-first e estados de sincronização Google;
-- após esta mudança de schema executar `npm run db:push` antes de publicar o backend que consulta `routines`.
+- para provisionar `routines` e `user_sessions` de maneira aditiva, executar `npm run db:ensure` ou a migração SQL idempotente revisada. NÃO executar `db:push` indiscriminadamente em produção.
+
+### Segurança de migrações e armazenamento de sessões (incidente 08/10/2026)
+- houve uma execução de `drizzle-kit push` que **excluiu** a tabela `user_sessions` contendo 31 sessões; a tabela não estava declarada no `shared/schema.ts`, então a ferramenta sugeriu descartá-la como externa ao schema;
+- manter `user_sessions` **declarada** em `shared/schema.ts` com colunas `sid` (varchar), `sess` (jsonb), `expire` (timestamptz) e índice `user_sessions_expire_idx`; não renomear `user_sessions` para `routines`;
+- `server/session-store.ts` pode recriar uma tabela vazia de sessões automaticamente, mas NÃO restaura os registros excluídos nem as sessões antigas;
+- **jamais orientar a confirmação de `DROP TABLE`, `DELETE`, `TRUNCATE` ou renomeação sugerida pelo Drizzle sem inspecionar impacto e backup**;
+- o caminho seguro aditivo para estrutura de sessões e rotina é `npm run db:ensure` (`scripts/ensure-db.ts`), que apenas executa `CREATE TABLE IF NOT EXISTS` e `CREATE INDEX IF NOT EXISTS`;
+- `npm run db:push` fica bloqueado por padrão e exige aceite explícito em variável de ambiente, além de backup e revisão humana;
+- para qualquer futura mudança em produção, usar migração SQL versionada e não destrutiva, revisar diffs e manter tabelas externas documentadas no schema;
+- sempre executar `npm run check` e `npm run build` em código atualizado antes de considerar um deploy pronto.
 
 ## 23. Critério de pronto
 
