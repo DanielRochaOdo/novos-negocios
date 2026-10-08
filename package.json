@@ -7,8 +7,9 @@
     "dev": "tsx watch server/index.ts",
     "build": "vite build",
     "start": "NODE_ENV=production tsx server/index.ts",
-    "db:push": "drizzle-kit push",
-    "check": "tsc --noEmit"
+    "db:push": "node scripts/guard-db-push.mjs",
+    "check": "tsc --noEmit",
+    "db:ensure": "tsx scripts/ensure-db.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "latest",
