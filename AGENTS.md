@@ -15,6 +15,7 @@ CRM comercial com dinâmica semelhante ao VendorCRM, voltado ao fluxo:
 Módulos:
 - Dashboard
 - Agenda
+- Rotina da equipe (somente Gestor — visão consolidada e não duplicação do cadastro)
 - Funil de Vendas (Kanban)
 - Empresas
 - Configurações (Gestor)
@@ -786,6 +787,18 @@ Estas regras foram acrescentadas a partir do documento de revisão visual enviad
 - o Funil mostra um resumo da rotina do dia com acesso à Agenda para o vendedor/gestor consultar a ocupação;
 - respeitar `America/Fortaleza`, mobile-first e estados de sincronização Google;
 - para provisionar `routines` e `user_sessions` de maneira aditiva, executar `npm run db:ensure` ou a migração SQL idempotente revisada. NÃO executar `db:push` indiscriminadamente em produção.
+
+### Módulo de Rotina exclusivo do Gestor — ajuste aprovado (08/10/2026)
+- o Gestor tem **módulo dedicado "Rotina"**, visível na sidebar e na navegação mobile apenas para perfil GESTOR; Vendedor não recebe esse módulo;
+- o cadastro/edição de atividades da rotina do Vendedor **permanece na Agenda**: o módulo do Gestor é uma visão consolidada de acompanhamento da equipe, sem duplicação de registros;
+- o módulo consolida, em uma linha do tempo por vendedor, **Visitas**, **Retornos** e **Rotina interna**, consultando as mesmas tabelas existentes (`visits`, `followups`, `routines`);
+- cada visita mostra **o status original dela ao lado** (AGENDADA, REALIZADA, REMARCADA, NAO_RECEBEU, VENDA_GANHA, VENDA_PERDIDA ou CANCELADA), além de empresa, vendedor, data e hora;
+- as visitas não devem ter seu status comercial alterado automaticamente porque estão atrasadas: mostrar o estado persistido e permitir abrir o registro completo;
+- filtro por vendedor, período Dia/Semana com navegação anterior/próximo/Hoje, e tipo de atividade; apresentação agrupada por vendedor;
+- abrir uma visita deve levar à página de detalhe/registro da própria visita, um retorno à aba Acompanhamento da empresa e uma rotina à Agenda;
+- API dedicada `GET /api/gestor/rotina` **somente GESTOR** (403 para Vendedor), com filtro por data e vendedor, evitando carregar todo o histórico desnecessariamente;
+- interface mobile-first, status legível sem scroll horizontal da página, temas claro/escuro e navegação inferior usável com seis destinos do Gestor;
+- **sem alteração no schema do banco**: dados já existentes são reaproveitados; não orientar `db:push` para esta funcionalidade.
 
 ### Segurança de migrações e armazenamento de sessões (incidente 08/10/2026)
 - houve uma execução de `drizzle-kit push` que **excluiu** a tabela `user_sessions` contendo 31 sessões; a tabela não estava declarada no `shared/schema.ts`, então a ferramenta sugeriu descartá-la como externa ao schema;
