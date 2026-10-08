@@ -523,6 +523,18 @@ Dashboard do Gestor pode consolidar equipe e filtrar vendedores.
 
 ## 15. Empresas
 
+### Consulta cadastral por CNPJ
+- sempre que existir um campo **editável** de CNPJ, exibir uma ação de lupa ao lado do campo para consultar os dados cadastrais;
+- a consulta usa o endpoint interno `/api/cnpj/:cnpj`, que por sua vez consulta a **BrasilAPI / Minha Receita**; o frontend não deve chamar a API externa diretamente;
+- aplicar a lupa em: **Nova Empresa**, **Editar Empresa** e **Registro de Visita → Venda Ganha**;
+- não exibir essa lupa em campos cujo objetivo seja apenas **pesquisar empresas já cadastradas no CRM** (por exemplo, busca global da Agenda, busca da tela Empresas e busca do Funil);
+- ao consultar no cadastro completo de empresa, preencher quando disponíveis: CNPJ, Nome (nome fantasia; na ausência, razão social), Telefone, E-mail e Endereço completo;
+- no registro de Venda Ganha, preencher somente os campos existentes naquele formulário: CNPJ, Telefone e E-mail; não persistir alterações extras na empresa antes de o usuário salvar o registro;
+- **Responsável comercial** não deve ser preenchido automaticamente pelo QSA/representante legal da Receita, pois são conceitos diferentes;
+- número de funcionários e valor da proposta não existem no cadastro da Receita e nunca devem ser inferidos;
+- a consulta deve mostrar erro legível quando o CNPJ for inválido, não existir ou a fonte estiver indisponível;
+- preservar edição manual após a consulta; dados retornados são assistência de preenchimento, não decisão automática.
+
 ### Performance e paginação da listagem
 - a tela **Empresas** não deve carregar toda a base de uma vez;
 - a listagem padrão e a busca global dentro da tela Empresas usam paginação server-side;
