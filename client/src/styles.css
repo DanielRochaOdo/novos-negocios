@@ -1039,3 +1039,25 @@ section h3{font-size:12px}.section-title p{font-size:9px;line-height:1.5;color:#
   .user-actions{display:grid;grid-template-columns:1fr;gap:7px}
   .user-actions .text-button{min-height:40px;padding:8px 0;text-align:left}
 }
+
+/* Consulta de CNPJ — lupa ao lado do campo */
+.cnpj-lookup-field{display:grid;gap:6px}
+.cnpj-input-row{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:7px;align-items:center}
+.cnpj-input-row input{min-width:0;width:100%}
+.cnpj-search-button{width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important;padding:0!important;display:grid!important;place-items:center!important;border-radius:9px!important}
+.cnpj-search-button svg{width:18px;height:18px}
+.cnpj-search-button:disabled{cursor:not-allowed;opacity:.6}
+.cnpj-feedback{display:block;min-height:12px;font-size:8px;font-weight:600;line-height:1.35}
+.cnpj-feedback.success-text{color:#1d8a50}
+.cnpj-feedback.error-text{color:#c94a59}
+.mini-spinner{width:17px;height:17px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:company-spin .7s linear infinite}
+.theme-dark .cnpj-feedback.success-text{color:#75dda7}
+.theme-dark .cnpj-feedback.error-text{color:#ff9aa5}
+.theme-dark .cnpj-search-button{background:#10283d!important;border-color:#31536d!important;color:#7cc1ff!important}
+.theme-dark .cnpj-search-button:hover{background:#153149!important;color:#fff!important}
+@media(max-width:760px){
+  .cnpj-input-row{grid-template-columns:minmax(0,1fr) 48px;gap:7px}
+  .cnpj-search-button{width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important}
+  .cnpj-search-button svg{width:20px;height:20px}
+  .cnpj-feedback{font-size:10px}
+}
