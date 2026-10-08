@@ -1298,3 +1298,61 @@ section h3{font-size:12px}.section-title p{font-size:9px;line-height:1.5;color:#
 }
 .app.theme-light .primary:hover,
 .app.theme-dark .primary:hover{filter:brightness(1.06)}
+
+
+/* Rotina do vendedor e decisão comercial pelo Funil — mobile-first */
+.agenda-new-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.agenda-new-actions>button{min-height:44px}
+.agenda-manager-filter{margin:10px 0;display:flex;justify-content:flex-end}
+.agenda-manager-filter label{min-width:200px;max-width:100%;font-size:11px}
+.agenda-routine-form{margin-bottom:14px;scroll-margin-top:84px}
+.routine-form-fields,.funnel-decision-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.routine-form-fields label,.funnel-decision-form label{display:grid;gap:7px;min-width:0;font-weight:700}
+.routine-form-fields .full,.funnel-decision-form .full{grid-column:1/-1}
+.routine-form-fields textarea,.funnel-decision-form textarea{min-height:92px}
+.routine-actions,.funnel-decision-actions{display:flex;align-items:center;gap:8px;grid-column:1/-1;flex-wrap:wrap}
+.routine-actions button,.funnel-decision-actions button{min-height:44px}
+.funnel-decision{margin:12px 0 16px;padding:18px;border-radius:14px;scroll-margin-top:84px}
+.funnel-decision .section-title{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:16px}
+.funnel-decision .section-title h3{font-size:17px;margin:0 0 4px}
+.funnel-decision .section-title p{margin:0;font-size:11px;line-height:1.55}
+.funnel-decision .warn-box{margin-bottom:12px}
+.follow-tab-content{display:grid;gap:12px;padding-bottom:7px}
+.follow-tab-head h3{margin:0}
+.follow-tab-head p{margin:4px 0 0;font-size:11px}
+.follow-tab-content .follow-box{margin:8px 0 0}
+.google-sync-actions{display:grid;gap:10px;margin-top:14px}
+.google-sync-actions>.success,.google-sync-actions>.warn-box{display:flex;flex-direction:column;gap:6px}
+.google-sync-actions .outline{justify-self:start;min-height:44px}
+.cal-event.routine{cursor:pointer;text-align:left;width:calc(100% - 6px);background:#eee9ff;border-left:3px solid #9067ed;color:#39216e;display:grid}
+.agenda-dot.routine{background:#926cef}
+.agenda-list-item.routine{width:100%;text-align:left;cursor:pointer;font:inherit;border:1px solid #d6ddea;background:#f4f0ff;color:#20344a;border-radius:9px}
+.mobile-agenda-event.routine{width:100%;cursor:pointer;text-align:left;font:inherit;background:#f4f0ff;border-left:4px solid #926cef;color:#20344a}
+.mobile-agenda-event.routine .mobile-event-copy strong{color:#6636b9}
+.theme-dark .funnel-decision,
+.theme-dark .agenda-routine-form{background:linear-gradient(180deg,#122c43,#0b2236)!important;color:#f2f8fe!important;border:1px solid #31526c!important}
+.theme-dark .funnel-decision .section-title p,.theme-dark .follow-tab-head p{color:#adc3d5!important}
+.theme-dark .cal-event.routine{background:#322451!important;border-left-color:#aa82ff!important;color:#e6dbff!important}
+.theme-dark .agenda-list-item.routine,
+.theme-dark .mobile-agenda-event.routine{background:#261e43!important;color:#f4edff!important;border-color:#4a3a72!important}
+.theme-dark .mobile-agenda-event.routine .mobile-event-copy strong{color:#c4a9ff!important}
+.theme-light .agenda-routine-form,.theme-light .funnel-decision{background:#fff!important;border:1px solid #d2deea!important}
+.theme-light .funnel-decision .section-title p,.theme-light .follow-tab-head p{color:#526a80!important}
+@media(max-width:760px){
+  .agenda-new-actions{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .agenda-new-actions button{width:100%;padding:10px 7px;min-height:46px;font-size:12px}
+  .agenda-manager-filter{justify-content:stretch}
+  .agenda-manager-filter label{min-width:0;width:100%;font-size:13px}
+  .routine-form-fields,.funnel-decision-form{grid-template-columns:1fr;gap:12px}
+  .routine-form-fields .full,.funnel-decision-form .full,.routine-actions,.funnel-decision-actions{grid-column:1}
+  .routine-actions,.funnel-decision-actions{display:grid;grid-template-columns:1fr}
+  .routine-actions button,.funnel-decision-actions button{width:100%;min-height:48px}
+  .funnel-decision{padding:14px;margin:12px 0}
+  .funnel-decision .section-title{display:grid;grid-template-columns:1fr;gap:9px}
+  .funnel-decision .section-title button{width:100%}
+  .funnel-decision .section-title h3{font-size:16px}
+  .routine-form-fields input,.routine-form-fields select,.routine-form-fields textarea,
+  .funnel-decision input,.funnel-decision select,.funnel-decision textarea{font-size:16px!important}
+  .follow-tab-content{gap:12px}
+  .google-sync-actions>.outline{width:100%;justify-self:stretch}
+}
