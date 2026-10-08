@@ -525,7 +525,9 @@ Dashboard do Gestor pode consolidar equipe e filtrar vendedores.
 
 ### Consulta cadastral por CNPJ
 - sempre que existir um campo **editável** de CNPJ, exibir uma ação de lupa ao lado do campo para consultar os dados cadastrais;
-- a consulta usa o endpoint interno `/api/cnpj/:cnpj`, que por sua vez consulta a **BrasilAPI / Minha Receita**; o frontend não deve chamar a API externa diretamente;
+- a consulta usa o endpoint interno `/api/cnpj/:cnpj`; o backend consulta **Minha Receita** diretamente como fonte principal e usa **BrasilAPI** como fallback, sempre sem expor chamadas externas ao frontend;
+- em ambiente serverless/Vercel, enviar `User-Agent` explícito nas consultas externas para evitar bloqueios conhecidos da mitigação anti-bot da BrasilAPI;
+- a falha de uma fonte não deve encerrar a consulta: tentar a fonte seguinte antes de retornar erro ao usuário;
 - aplicar a lupa em: **Nova Empresa**, **Editar Empresa** e **Registro de Visita → Venda Ganha**;
 - não exibir essa lupa em campos cujo objetivo seja apenas **pesquisar empresas já cadastradas no CRM** (por exemplo, busca global da Agenda, busca da tela Empresas e busca do Funil);
 - ao consultar no cadastro completo de empresa, preencher quando disponíveis: CNPJ, Nome (nome fantasia; na ausência, razão social), Telefone, E-mail e Endereço completo;
