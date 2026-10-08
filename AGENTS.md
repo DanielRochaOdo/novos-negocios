@@ -735,7 +735,48 @@ Estas regras foram acrescentadas a partir do documento de revisão visual enviad
 - manter consistência de bordas, sombras, radius, espaçamentos, estados hover/focus, tipografia e hierarquia;
 - respeitar sempre a referência visual aprovada do produto e estas correções adicionais.
 
-## 22. Critério de pronto
+## 22. Ajustes vitais — Google, Funil, Acompanhamento e Rotina diária (08/10/2026)
+
+### Sincronização com Google Agenda
+- criar visitas e retornos primeiro no CRM e tentar sincronizar em seguida; falha do Google não deve perder o dado;
+- visitas retroativas são válidas, inclusive para sincronização no calendário do vendedor;
+- evento do Google deve ir à conta Google vinculada ao vendedor responsável, não à conta do Gestor;
+- na página Perfil exibir quantidade de pendências e ação real **Sincronizar pendências agora**; após conectar/reconectar, tentar um lote de pendências;
+- visitas antigas sem `google_event_id` devem poder ser reenviadas, inclusive depois de reconectar; não criar eventos repetidos quando já existir `google_event_id`;
+- retornos agendados e atividades de rotina com data e hora também podem sincronizar; mostrar falhas e manter opção de tentar novamente;
+- visitas remarcadas não podem ficar duplicadas no calendário operacional: cancelar evento antigo e criar novo; falhas devem ser registradas nos logs.
+
+### Visitas retroativas
+- os campos de data/hora da Agenda aceitam dias anteriores, sem bloqueio temporal artificial;
+- a data comercial da proposta registrada a partir de visita retroativa deve ser a data da visita, não automaticamente a data atual;
+- não confundir visita passada **ainda não registrada** com visita cancelada/remarcada; pode ser concluída pelo registro normal.
+
+### Funil com registro real de resultado
+- ao mudar para Agendamento, encaminhar à Agenda com a empresa selecionada, para criar visita com data/hora;
+- ao mudar para Negociação, Venda Ganha ou Venda Perdida, abrir formulário comercial REAL no próprio Funil, adequado a celular; nunca apenas mensagem/alert;
+- exigir campos aprovados, incluindo CNPJ em Venda Ganha, e motivo em Venda Perdida;
+- se existir visita AGENDADA pendente, o usuário pode vinculá-la ao registro do Funil, para encerrar a visita corretamente;
+- sem visita pendente, registrar decisão comercial auditada na empresa sem criar visita fictícia;
+- manter o histórico e as regras de posse; não permitir tomar empresa de outro vendedor;
+- depois de salvar, atualizar a coluna do card de forma coerente no desktop e mobile.
+
+### Acompanhamento
+- o formulário `Novo Acompanhamento` fica EXCLUSIVAMENTE na aba Acompanhamento da empresa, junto de seu histórico;
+- as abas Histórico, Visitas, Tags e Dados da Empresa NÃO podem renderizar o formulário;
+- retorno com próxima data cria compromisso RETORNO na Agenda e pode sincronizar no Google.
+
+### Rotina diária na Agenda (sem novo módulo)
+- a rotina diária fica na própria Agenda, por ser a fonte de atividades datadas;
+- vendedor cria, edita e cancela atividades com título, tipo (Reunião interna, Atividade interna, Planejamento, Outra), início/fim e observações;
+- dados da rotina ficam em tabela `routines`; cancelamentos preservam registro e auditoria;
+- Gestor tem visão simples da rotina dos vendedores pela Agenda com filtro de vendedor;
+- a rotina aparece na Agenda junto de VISITA e RETORNO, porém com aparência distinta; nunca deve virar automaticamente empresa/card do Funil;
+- blocos de rotina e retornos agendados entram na checagem de conflitos quando uma visita ou outra atividade é marcada;
+- o Funil mostra um resumo da rotina do dia com acesso à Agenda para o vendedor/gestor consultar a ocupação;
+- respeitar `America/Fortaleza`, mobile-first e estados de sincronização Google;
+- após esta mudança de schema executar `npm run db:push` antes de publicar o backend que consulta `routines`.
+
+## 23. Critério de pronto
 
 Uma funcionalidade só está pronta quando:
 - UI corresponde à referência aprovada;
