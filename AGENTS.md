@@ -86,6 +86,15 @@ Ao alterar UI, comparar explicitamente com essa referência. Funcionalidade não
 - componentes de acompanhamento (Ligação, WhatsApp, E-mail, Presencial, Outro) devem seguir o tema atual; nunca podem aparecer como blocos brancos vazios no modo escuro;
 - novas cores não devem ser inventadas isoladamente por tela: reutilizar os tokens globais de fundo, superfície, borda, texto, ação e estados semânticos.
 
+### Estados visuais e contraste (regressão corrigida)
+- todos os botões comerciais do CRM (especialmente `Sim/Não`, `Entrega de proposta/Venda ganha` e demais resultados da Visita) precisam definir **cor de texto explicitamente**, nunca apenas fundo/borda; esta falha fazia rótulos desaparecerem nos temas claro/escuro;
+- um botão **não selecionado** continua legível e visualmente clicável; o estado desabilitado é separado e não pode ser confundido com o não selecionado;
+- textos de controles normais e selecionados devem atingir, sempre que possível, **WCAG AA 4,5:1** (texto normal); ícones/bordas essenciais devem ser distinguíveis;
+- botão ativo com texto branco não deve usar azul claro sem contraste suficiente; preferir azul mais profundo (`#096bd6` ou equivalente aprovado);
+- aplicar tokens de contraste compartilhados aos formulários de Visita, Acompanhamento, Agenda, Empresas, Funil, Perfil e Configurações nos dois temas, sem alterar a referência visual;
+- botões de escolha mutuamente exclusivos devem expor `aria-pressed` ou semântica equivalente, além do estado visual;
+- validar todos os estados **normal, hover, foco, selecionado e disabled** no desktop e no mobile; não declarar validação visual concluída sem executar o app nos dois temas.
+
 ### Tema escuro e sidebar
 - o sistema autenticado usa **tema escuro por padrão**, preservando a identidade Odontoart (azul-marinho, azul de ação e verde institucional);
 - entre o bloco do usuário e o botão **Sair** na sidebar deve existir um controle Sun/Moon para alternar entre tema escuro e claro;
