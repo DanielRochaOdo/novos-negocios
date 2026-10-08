@@ -1061,3 +1061,231 @@ section h3{font-size:12px}.section-title p{font-size:9px;line-height:1.5;color:#
   .cnpj-search-button svg{width:20px;height:20px}
   .cnpj-feedback{font-size:10px}
 }
+
+
+/* ============================================================
+   Acessibilidade / contraste — componentes comerciais
+   O tema controla explicitamente texto, fundo, borda e estados.
+   ============================================================ */
+.theme-light{
+  --control-bg:#ffffff;
+  --control-text:#17324d;
+  --control-muted:#526a80;
+  --control-border:#b9ccdc;
+  --control-hover:#eaf3ff;
+  --control-selected:#096fe3;
+  --control-selected-text:#ffffff;
+  --control-disabled-bg:#edf2f6;
+  --control-disabled-text:#61778b;
+  --control-focus:#0878f9;
+}
+.theme-dark{
+  --control-bg:#10283d;
+  --control-text:#edf6ff;
+  --control-muted:#b9cbda;
+  --control-border:#3e6683;
+  --control-hover:#1a3852;
+  --control-selected:#1688ff;
+  --control-selected-text:#ffffff;
+  --control-disabled-bg:#182b3b;
+  --control-disabled-text:#93aabd;
+  --control-focus:#75bdff;
+}
+
+/* Registro da visita: corrigir botões que antes pareciam vazios */
+.app .visit-register .radio-row button,
+.app .visit-register .result-grid button{
+  background:var(--control-bg)!important;
+  border:1px solid var(--control-border)!important;
+  color:var(--control-text)!important;
+  opacity:1!important;
+  font-weight:650!important;
+  font-size:clamp(11px,1vw,13px)!important;
+  line-height:1.35!important;
+  min-height:44px;
+  padding:10px 13px;
+  border-radius:9px;
+  white-space:normal;
+  text-align:center;
+  transition:background-color .16s,border-color .16s,color .16s,box-shadow .16s;
+}
+.app .visit-register .radio-row button:not(.selected):not(:disabled):hover,
+.app .visit-register .result-grid button:not(.selected):not(:disabled):hover{
+  background:var(--control-hover)!important;
+  border-color:var(--control-focus)!important;
+}
+.app .visit-register .radio-row button.selected,
+.app .visit-register .result-grid button.selected{
+  background:var(--control-selected)!important;
+  border-color:var(--control-selected)!important;
+  color:var(--control-selected-text)!important;
+  box-shadow:0 3px 12px rgba(8,120,249,.18)!important;
+  font-weight:750!important;
+}
+.app .visit-register .radio-row button:disabled,
+.app .visit-register .result-grid button:disabled{
+  background:var(--control-disabled-bg)!important;
+  color:var(--control-disabled-text)!important;
+  border-color:var(--control-border)!important;
+  cursor:not-allowed;
+  box-shadow:none!important;
+}
+
+/* Abas: Agenda, Empresas, Configurações e cabeçalho da visita */
+.app .tabs,
+.app .config-tabs{
+  border-color:var(--control-border);
+}
+.app .tabs button,
+.app .config-tabs button,
+.app .agenda-head .tabs button{
+  color:var(--control-text)!important;
+  opacity:1!important;
+  font-weight:650;
+}
+.app .tabs button:not(.active):hover,
+.app .config-tabs button:not(.active):hover,
+.app .agenda-head .tabs button:not(.active):hover{
+  color:var(--control-text)!important;
+  background:var(--control-hover)!important;
+}
+.app .tabs button.active,
+.app .config-tabs button.active,
+.app .agenda-head .tabs button.active{
+  color:var(--control-focus)!important;
+  font-weight:750!important;
+}
+.app .visit-register>.tabs>span{
+  color:var(--control-muted)!important;
+  opacity:1!important;
+}
+.app .visit-register>.tabs>b{
+  font-weight:750!important;
+}
+.theme-light .tabs,
+.theme-light .config-tabs{background:#edf3f8!important;border-color:#cbd9e5!important}
+.theme-light .tabs button.active,
+.theme-light .tabs b,
+.theme-light .config-tabs button.active{
+  background:#fff!important;
+  color:#075cbf!important;
+}
+.theme-dark .tabs button.active,
+.theme-dark .tabs b,
+.theme-dark .config-tabs button.active{
+  background:#173953!important;
+  color:#8ccbff!important;
+  box-shadow:inset 0 0 0 1px #386688!important;
+}
+.theme-dark .visit-register>.tabs>span{color:#c6d5e1!important}
+.theme-light .visit-register>.tabs>span{color:#526a80!important}
+
+/* Select de contato (Acompanhamento) e filtros do Funil mobile */
+.app .contact-types button{
+  color:var(--control-text)!important;
+  border:1px solid var(--control-border)!important;
+  font-weight:650!important;
+  opacity:1!important;
+}
+.theme-light .contact-types button:not(.selected){background:#fff!important}
+.theme-dark .contact-types button:not(.selected){background:#0b2133!important}
+.app .contact-types button.selected{
+  border-color:var(--control-focus)!important;
+  font-weight:750!important;
+}
+.theme-light .contact-types button.selected{background:#e5f2ff!important;color:#075bbb!important}
+.theme-dark .contact-types button.selected{background:#154368!important;color:#e7f4ff!important}
+.app .mobile-stage-tabs button:not(.active){
+  background:var(--control-bg)!important;
+  border-color:var(--control-border)!important;
+  color:var(--control-text)!important;
+}
+.app .mobile-stage-tabs button:not(.active) b{color:var(--control-text)!important}
+.app .mobile-stage-tabs button.active{
+  background:var(--control-selected)!important;
+  border-color:var(--control-selected)!important;
+  color:#fff!important;
+}
+.app .mobile-stage-tabs button.active b{color:#fff!important}
+
+/* Botões secundários e datas: não herdar texto branco sobre branco */
+.app .outline:not(.password-toggle),
+.app .date-pill,
+.app .agenda-nav button,
+.app .text-button{
+  color:var(--control-text)!important;
+}
+.theme-light .outline:not(.password-toggle),
+.theme-light .date-pill,
+.theme-light .agenda-nav button{
+  background:#fff!important;
+  border-color:var(--control-border)!important;
+}
+.theme-dark .outline:not(.password-toggle),
+.theme-dark .date-pill,
+.theme-dark .agenda-nav button{
+  background:#10283d!important;
+  border-color:var(--control-border)!important;
+}
+.app .outline:not(.password-toggle):not(:disabled):hover,
+.app .agenda-nav button:not(:disabled):hover{
+  background:var(--control-hover)!important;
+  border-color:var(--control-focus)!important;
+}
+.theme-light .text-button{color:#075dbf!important}
+.theme-dark .text-button{color:#89caff!important}
+
+/* Campos editáveis + texto secundário + estados de foco */
+.app :is(input,select,textarea){
+  border-color:var(--control-border)!important;
+}
+.theme-light :is(input,select,textarea):not(:disabled){
+  background:#fff!important;
+  color:#17324d!important;
+}
+.theme-dark :is(input,select,textarea):not(:disabled){
+  background:#071827!important;
+  color:#f2f8fe!important;
+}
+.theme-light :is(input,textarea)::placeholder{color:#60758a!important;opacity:1!important}
+.theme-dark :is(input,textarea)::placeholder{color:#a2b8ca!important;opacity:1!important}
+.app :is(input,select,textarea):focus-visible,
+.app button:focus-visible,
+.app a:focus-visible{
+  outline:2px solid var(--control-focus)!important;
+  outline-offset:2px!important;
+}
+.theme-light :is(input,select,textarea):disabled,
+.theme-dark :is(input,select,textarea):disabled{
+  background:var(--control-disabled-bg)!important;
+  color:var(--control-disabled-text)!important;
+  border-color:var(--control-border)!important;
+  opacity:1!important;
+  -webkit-text-fill-color:var(--control-disabled-text)!important;
+}
+.theme-light button:disabled,
+.theme-dark button:disabled{
+  color:var(--control-disabled-text)!important;
+  border-color:var(--control-border)!important;
+  cursor:not-allowed;
+  opacity:1!important;
+}
+.app :is(.visit-summary,.company-info) p{color:var(--control-muted)!important}
+.app :is(.visit-summary,.company-info) p b{color:var(--control-text)!important}
+.app .visit-register h3,
+.app .visit-register label{color:var(--control-text)!important}
+.theme-light .visit-register>.tabs{background:#edf3f8!important}
+.theme-dark .visit-register>.tabs{background:#081a29!important}
+
+/* Mobile: títulos e controles legíveis mesmo com largura compacta */
+@media(max-width:760px){
+  .app .visit-register .radio-row button,
+  .app .visit-register .result-grid button{
+    min-height:48px!important;
+    padding:11px 9px!important;
+    font-size:13px!important;
+  }
+  .app .tabs button,.app .config-tabs button{min-height:42px}
+  .app .visit-register>.tabs>span,
+  .app .visit-register>.tabs>b{font-size:11px!important}
+}
