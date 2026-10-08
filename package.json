@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch server/index.ts",
-    "build": "vite build",
+    "build": "npm run check && vite build",
     "start": "NODE_ENV=production tsx server/index.ts",
     "db:push": "node scripts/guard-db-push.mjs",
     "check": "tsc --noEmit",
