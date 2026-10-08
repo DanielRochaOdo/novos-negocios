@@ -1356,3 +1356,21 @@ section h3{font-size:12px}.section-title p{font-size:9px;line-height:1.5;color:#
   .follow-tab-content{gap:12px}
   .google-sync-actions>.outline{width:100%;justify-self:stretch}
 }
+
+.funnel-routine-summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 13px;margin:8px 0 12px;border:1px solid #d2dfeb;border-radius:11px;background:#f5f9fd}
+.funnel-routine-summary>div{display:grid;gap:3px}
+.funnel-routine-summary b{font-size:12px}
+.funnel-routine-summary span{font-size:11px;line-height:1.45}
+.funnel-routine-summary .outline{flex-shrink:0;white-space:nowrap}
+.funnel-visit-choice{padding:11px;border:1px solid #cbddeb;border-radius:9px;background:#f5f9fc}
+.funnel-visit-choice>small{display:block;margin-top:6px;font-size:10px;line-height:1.5}
+.theme-dark .funnel-routine-summary{background:#10263a;color:#f1f7fd;border-color:#2d506a}
+.theme-dark .funnel-routine-summary span{color:#adc5d7}
+.theme-dark .funnel-visit-choice{background:#10283d;border-color:#31536d}
+.theme-dark .funnel-visit-choice small{color:#aec7da}
+@media(max-width:760px){
+  .funnel-routine-summary{display:grid;gap:10px;padding:12px}
+  .funnel-routine-summary .outline{width:100%;justify-content:center;min-height:44px;white-space:normal}
+  .funnel-visit-choice{padding:10px}
+  .funnel-visit-choice select{width:100%;min-width:0}
+}
