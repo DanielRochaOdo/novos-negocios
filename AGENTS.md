@@ -558,6 +558,16 @@ Dashboard do Gestor pode consolidar equipe e filtrar vendedores.
 - a consulta deve mostrar erro legível quando o CNPJ for inválido, não existir ou a fonte estiver indisponível;
 - preservar edição manual após a consulta; dados retornados são assistência de preenchimento, não decisão automática.
 
+### Filtro por vendedor e exportação de empresas (Gestor + Vendedor)
+- no módulo **Empresas**, Gestor pode filtrar a listagem paginada por **Todos os vendedores**, **Sem responsável**, ou vendedor específico (inclusive inativo), mantendo a busca por nome/CNPJ;
+- o filtro deve ser aplicado no **backend**, tanto na listagem padrão quanto na busca global paginada; mudança de filtro reinicia na página 1;
+- o Gestor pode exportar para **XLSX real**, não CSV renomeado, todas as empresas correspondentes aos filtros atuais (não só os 50 resultados visíveis), incluindo CNPJ, etapa, vendedor, contato, endereço, proposta, tags e data de cadastro;
+- o Vendedor pode exportar exclusivamente **sua carteira** (não outros vendedores e não toda a base global, mesmo que essa busca preventiva mostre contexto cadastral);
+- sem filtro por vendedor, o Gestor exporta todas as empresas que correspondem à busca atual; empresa sem vendedor permanece identificada como "Sem responsável";
+- exportação deve limitar tamanho de maneira explícita, manter cabeçalho e filtros do Excel, escrever textos como valores literais (sem fórmulas executáveis), e evitar alteração do Neon;
+- componentes visíveis e legíveis nos temas claro/escuro e em viewport mobile, sem estourar horizontalmente;
+- mudanças desta função devem ser feitas em branch de feature com PR solicitado pelo usuário, não diretamente na `main`.
+
 ### Performance e paginação da listagem
 - a tela **Empresas** não deve carregar toda a base de uma vez;
 - a listagem padrão e a busca global dentro da tela Empresas usam paginação server-side;
