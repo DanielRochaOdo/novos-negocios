@@ -119,7 +119,9 @@ function zipXlsx(entries:{name:string,content:string}[]):Blob{
   const end=new Uint8Array(22),v=new DataView(end.buffer);
   v.setUint32(0,0x06054b50,true);v.setUint16(8,entries.length,true);v.setUint16(10,entries.length,true);
   v.setUint32(12,centralSize,true);v.setUint32(16,offset,true);
-  return new Blob([...parts,...directory,end],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+  const chunks:ArrayBuffer[]=[];
+  for(const part of [...parts,...directory,end]){const buffer=new ArrayBuffer(part.byteLength);new Uint8Array(buffer).set(part);chunks.push(buffer)}
+  return new Blob(chunks,{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
 }
 export function makeCompaniesWorkbook(rows:CompanyExportRow[]):Blob{
   return zipXlsx([
