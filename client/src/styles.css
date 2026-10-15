@@ -1525,3 +1525,42 @@ section h3{font-size:12px}.section-title p{font-size:9px;line-height:1.5;color:#
  .manager-routine-status{grid-column:2;justify-self:start;max-width:none;padding:5px 10px}
  .mobile-bottom-nav:has(a:nth-child(6)) a span{font-size:6px;letter-spacing:-.15px}
 }
+
+
+/* Empresas — filtros e exportação XLSX, mobile-first */
+.company-toolbar.company-toolbar-export{
+  display:grid;grid-template-columns:minmax(200px,1fr) minmax(185px,240px) auto auto;
+  gap:10px;align-items:end;margin-bottom:14px
+}
+.company-toolbar-export>.search{min-height:46px;align-self:end;min-width:0}
+.company-seller-filter{display:grid;gap:5px;min-width:0;color:var(--text,#16324a);font-size:11px;font-weight:800;line-height:1.2}
+.company-seller-filter select{min-width:0;width:100%;height:46px;min-height:46px;
+ border:1px solid var(--control-border,#b7cbdc);border-radius:10px;padding:0 12px;
+ background:var(--control-bg,#fff);color:var(--control-text,#183650);font-size:13px;cursor:pointer}
+.company-seller-filter select:focus-visible{outline:2px solid #2485ed;outline-offset:2px}
+.company-export-button{height:46px;min-height:46px;display:inline-flex;gap:8px;align-items:center;
+ justify-content:center;white-space:nowrap;padding:10px 14px!important;font-weight:800}
+.company-export-button:disabled{opacity:.65;cursor:wait}
+.company-toolbar-count{white-space:nowrap;font-size:11px!important;line-height:46px;font-weight:700;
+ color:var(--muted,#56718a)}
+.company-export-message{padding:11px 13px;margin:-2px 0 13px;border-radius:10px;
+ border:1px solid #afd0ef;background:#eef7ff;color:#174b78;font-size:12px;font-weight:650;line-height:1.4}
+.company-export-scope{font-size:11px;line-height:1.5;color:var(--muted,#5d7284);margin:0 0 12px}
+.theme-dark .company-seller-filter{color:#ecf6ff}
+.theme-dark .company-seller-filter select{background:#071b2b!important;color:#ecf6ff!important;border-color:#395c77!important}
+.theme-dark .company-export-message{background:#102e48;color:#d4ecff;border-color:#3a6886}
+.theme-dark .company-export-scope{color:#adc5d9}
+.theme-light .company-seller-filter select{background:#fff!important;color:#17324d!important;border-color:#c5d4e2!important}
+@media(max-width:1080px){
+  .company-toolbar.company-toolbar-export{grid-template-columns:minmax(0,1fr) minmax(175px,220px) auto}
+  .company-toolbar-count{grid-column:1/-1;line-height:1.4;justify-self:start!important}
+}
+@media(max-width:760px){
+  .company-toolbar.company-toolbar-export{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:11px}
+  .company-toolbar-export>.search{grid-column:1/-1;min-height:48px}
+  .company-seller-filter{grid-column:1/-1;font-size:13px;gap:6px}
+  .company-seller-filter select{font-size:16px;min-height:48px}
+  .company-export-button{grid-column:1/-1;min-height:48px;width:100%;font-size:13px;white-space:normal}
+  .company-toolbar-count{grid-column:1/-1;font-size:12px!important;margin:0}
+  .company-export-message{font-size:12px;margin-bottom:12px}
+}
