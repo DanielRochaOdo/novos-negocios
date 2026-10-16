@@ -58,6 +58,12 @@ function fortalezaDate(value?:string|null):number|null{
  const y=read("year"),m=read("month"),day=read("day"),h=read("hour"),min=read("minute"),sec=read("second");
  return (Date.UTC(y,m-1,day,h,min,sec)-Date.UTC(1899,11,30))/86400000;
 }
+function localDateText(value?:string|null):string{
+ if(!value)return "—";
+ const time=new Date(value);if(Number.isNaN(time.getTime()))return "—";
+ return time.toLocaleString("pt-BR",{timeZone:"America/Fortaleza",
+  day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"});
+}
 function sheetsOf(data:CompanyWorkbookData):Tab[]{
  const ids=new Map(data.items.map(c=>[c.id,c.name]));
  const companies:Tab={name:"Empresas",
@@ -105,11 +111,11 @@ function sheetsOf(data:CompanyWorkbookData):Tab[]{
  const timeline:{at:string;kind:string;companyId:number;sourceId:number;status:string;detail:string;actor:string}[]=[];
  for(const a of data.audit)timeline.push({at:a.createdAt,kind:"Histórico comercial",companyId:a.companyId,sourceId:a.id,
   status:a.type.replace(/_/g," "),detail:a.description,actor:a.actorName});
- for(const v of data.visits)timeline.push({at:v.createdAt,kind:"Visita",companyId:v.companyId,sourceId:v.id,
-  status:showVisit(v.status),detail:"Início: "+v.startsAt+" | Motivo: "+safe(v.reason)
+ for(const v of data.visits)timeline.push({at:v.createdAt,kind:"Visita (criação)",companyId:v.companyId,sourceId:v.id,
+  status:showVisit(v.status),detail:"Início previsto: "+localDateText(v.startsAt)+" | Fim: "+localDateText(v.endsAt)+" | Estado atual: "+showVisit(v.status)+" | Motivo: "+safe(v.reason)
    +" | Observações: "+safe(v.notes)+(v.rescheduledToId?" | Nova visita ID "+v.rescheduledToId:""),actor:v.sellerName});
  for(const f of data.followups)timeline.push({at:f.createdAt,kind:"Acompanhamento",companyId:f.companyId,sourceId:f.id,
-  status:f.type,detail:f.notes+(f.nextAt?" | Próximo retorno: "+f.nextAt:""),actor:f.sellerName});
+  status:f.type,detail:f.notes+(f.nextAt?" | Próximo retorno: "+localDateText(f.nextAt):""),actor:f.sellerName});
  for(const t of data.tagHistory)timeline.push({at:t.createdAt,kind:"Tag comercial",companyId:t.companyId,sourceId:t.id,
   status:t.tag,detail:"Tag adicionada à empresa",actor:t.addedByName});
  timeline.sort((a,b)=>a.companyId-b.companyId||Date.parse(a.at)-Date.parse(b.at)||a.kind.localeCompare(b.kind)||a.sourceId-b.sourceId);
