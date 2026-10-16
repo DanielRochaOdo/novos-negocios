@@ -568,6 +568,17 @@ Dashboard do Gestor pode consolidar equipe e filtrar vendedores.
 - componentes visíveis e legíveis nos temas claro/escuro e em viewport mobile, sem estourar horizontalmente;
 - mudanças desta função devem ser feitas em branch de feature com PR solicitado pelo usuário, não diretamente na `main`.
 
+### Exportação de toda a vida comercial da empresa — XLSX
+- **Exportar histórico XLSX** no módulo Empresas não é apenas uma lista de CNPJ, status e telefone: deve incluir a **vida comercial completa persistida** de cada empresa selecionada;
+- manter filtros ativos por vendedor (Gestor), Sem responsável, busca por nome/CNPJ, e exportar todas as páginas filtradas, nunca apenas 50 linhas visíveis; Vendedor só pode exportar empresas atualmente pertencentes à sua carteira;
+- planilha com seis abas: `Empresas` (dados cadastrais, status, datas de proposta, prazo, venda ganha/perdida e tags), `Visitas` (todas as visitas, resultados, motivo, observações, vendedor, data, vínculo ao reagendamento e estado do Google), `Acompanhamentos` (tipo de contato, observações, próximo retorno, datas, vendedor), `Historico Funil` (todos os eventos de auditoria relacionados à empresa, ações e autor), `Historico Tags` (todas as atribuições com autor/data) e `Linha do Tempo` (sequência consolidada por empresa);
+- cada aba usa `ID empresa` como chave, e não deve perder informações por resumi-las em uma única célula;
+- datas e horas em Excel usam o fuso `America/Fortaleza`; datas armazenadas devem aparecer em células ordenáveis e formatadas, e CNPJ/telefone permanecem texto para preservar zeros iniciais;
+- exportar os dados disponíveis em `companies`, `visits`, `followups`, `audit_events`, `company_tags` e `tags`; **não inventar** versões anteriores de propostas, transcrições de chamadas, anexos ou contatos não registrados no banco;
+- carregar lotes de 50 empresas por requisição para manter a exportação viável em mobile e na Vercel; limitar e comunicar erros de volume sem gerar planilhas incompletas;
+- **segurança**: consulta de históricos somente após aplicar o filtro de empresas autorizado; não exportar `password_hash`, tokens OAuth ou outras credenciais; escapar XML e gravar texto como literal (nunca interpretar observações como fórmulas); incluir testes para integridade do XLSX e estrutura de abas;
+- preservar os dados e o `AGENTS.md` na branch de feature até o usuário fazer o PR; nenhum `db:push` ou alteração no Neon é necessária.
+
 ### Performance e paginação da listagem
 - a tela **Empresas** não deve carregar toda a base de uma vez;
 - a listagem padrão e a busca global dentro da tela Empresas usam paginação server-side;
