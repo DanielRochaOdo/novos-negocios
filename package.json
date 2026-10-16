@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch server/index.ts",
-    "build": "npm run check && vite build",
+    "build": "npm run check && npm run test && vite build",
     "start": "NODE_ENV=production tsx server/index.ts",
     "db:push": "node scripts/guard-db-push.mjs",
     "check": "tsc --noEmit",
-    "db:ensure": "tsx scripts/ensure-db.ts"
+    "db:ensure": "tsx scripts/ensure-db.ts",
+    "test": "tsx --test tests/companies-xlsx.test.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "latest",

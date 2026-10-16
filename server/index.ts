@@ -1,4 +1,4 @@
-import "dotenv/config";import express from "express";import session from "express-session";import bcrypt from "bcryptjs";import {google} from "googleapis";import {and,eq,or,ilike,desc,gte,lte,isNull,sql,inArray} from "drizzle-orm";import {db} from "./db.js";import {sessionStore,destroyUserSessions} from "./session-store.js";import {users,companies,tags,companyTags,visits,followups,routines,events,settings} from "../shared/schema.js";
+import "dotenv/config";import express from "express";import session from "express-session";import bcrypt from "bcryptjs";import {google} from "googleapis";import {and,eq,or,ilike,desc,gte,lte,isNull,sql,inArray,count} from "drizzle-orm";import {db} from "./db.js";import {sessionStore,destroyUserSessions} from "./session-store.js";import {users,companies,tags,companyTags,visits,followups,routines,events,settings} from "../shared/schema.js";
 const app=express();app.set("trust proxy",1);app.use(express.json());app.use(session({store:sessionStore,secret:process.env.SESSION_SECRET||"dev-secret-change-me",resave:false,saveUninitialized:false,proxy:true,cookie:{secure:process.env.NODE_ENV==="production",httpOnly:true,sameSite:"lax",path:"/"}}));declare module "express-session"{interface SessionData{userId:number}}app.param("id",(req:any,res,next,value)=>{const id=Number(value);if(!Number.isInteger(id)||id<=0)return res.status(400).json({error:"ID inválido"});req.params.id=String(id);next()});
 const auth=(req:any,res:any,next:any)=>req.session.userId?next():res.status(401).json({error:"Não autenticado"});const getUser=async(id:number)=>(await db.select().from(users).where(eq(users.id,id)).limit(1))[0];const audit=async(companyId:number,actorId:number,type:string,description:string)=>db.insert(events).values({companyId,actorId,type,description});
 const APP_TIMEZONE=process.env.APP_TIMEZONE||"America/Fortaleza",APP_UTC_OFFSET="-03:00";
@@ -37,38 +37,85 @@ function companyOwnerFilter(raw:any,u:any):{condition?:any,error?:string,status?
 }
 app.get("/api/companies/search-global",auth,async(req:any,res)=>{const u=await getUser(req.session.userId),q=String(req.query.q||"").trim();if(!q)return res.json(req.query.page||req.query.limit?{items:[],total:0,page:1,pageSize:50,totalPages:0}:[]);const ownerFilter=companyOwnerFilter(req.query.sellerId,u);if(ownerFilter.error)return res.status(ownerFilter.status||400).json({error:ownerFilter.error});const where=and(or(ilike(companies.name,"%"+q+"%"),ilike(companies.cnpj,"%"+q+"%")),ownerFilter.condition),paged=req.query.page!==undefined||req.query.limit!==undefined,page=Math.max(1,Number(req.query.page)||1),pageSize=Math.min(100,Math.max(1,Number(req.query.limit)||50)),offset=(page-1)*pageSize;const countRows=paged?await db.select({count:sql<number>`count(*)::int`}).from(companies).where(where):[],rows=paged?await db.select().from(companies).where(where).orderBy(companies.name).limit(pageSize).offset(offset):await db.select().from(companies).where(where).orderBy(companies.name),owners=await db.select({id:users.id,name:users.name,active:users.active}).from(users),ids=rows.map(c=>c.id),tagRows=ids.length?await db.select({companyId:companyTags.companyId,name:tags.name,createdAt:companyTags.createdAt}).from(companyTags).innerJoin(tags,eq(companyTags.tagId,tags.id)).where(inArray(companyTags.companyId,ids)).orderBy(desc(companyTags.createdAt)):[];const items=rows.map(c=>{const owner=c.ownerId?owners.find(o=>o.id===c.ownerId):null;let availability="AVAILABLE";if(c.stage==="VENDA_GANHA"&&!(u.role==="VENDEDOR"&&c.ownerId===u.id))availability="WON_BLOCKED";else if(c.stage==="VENDA_PERDIDA")availability="LOST_AVAILABLE";else if(!c.ownerId||owner&&!owner.active)availability="AVAILABLE";else if(u.role==="VENDEDOR"&&c.ownerId===u.id)availability="OWN";else if(c.ownerId)availability="OTHER_ACTIVE";const own=u.role==="GESTOR"||c.ownerId===u.id||availability==="AVAILABLE"||availability==="LOST_AVAILABLE";return{id:c.id,name:c.name,cnpj:c.cnpj,address:c.address,stage:c.stage,inFunnel:c.inFunnel,ownerId:c.ownerId,ownerName:owner?.name||null,ownerActive:owner?.active??null,availability,tags:tagRows.filter(t=>t.companyId===c.id).slice(0,2),responsible:own?c.responsible:null,phone:own?c.phone:null,email:own?c.email:null,employees:own?c.employees:null,proposalValue:own?c.proposalValue:null}});if(!paged)return res.json(items);const total=Number(countRows[0]?.count||0);res.json({items,total,page,pageSize,totalPages:Math.ceil(total/pageSize)})});
 // Exportação limitada ao escopo autorizado. Gestor: todas/filtradas; Vendedor: só própria carteira.
-// A resposta é JSON: o navegador monta o XLSX sem bibliotecas externas ou alteração no Neon.
+// A resposta é JSON: o navegador monta o XLSX sem bibliotecas externas ou alteração no // Exportação histórica do CRM. Todas as relações usam somente IDs autorizados.
 app.get("/api/companies/export-data",auth,async(req:any,res)=>{
-  try{
-    const u=await getUser(req.session.userId),q=String(req.query.q||"").trim();
-    const ownerFilter=companyOwnerFilter(req.query.sellerId,u);
-    if(ownerFilter.error)return res.status(ownerFilter.status||400).json({error:ownerFilter.error});
-    const conditions:any[]=[];
-    if(q)conditions.push(or(ilike(companies.name,"%"+q+"%"),ilike(companies.cnpj,"%"+q+"%")));
-    if(u.role==="VENDEDOR")conditions.push(eq(companies.ownerId,u.id));
-    if(ownerFilter.condition)conditions.push(ownerFilter.condition);
-    const rows=await db.select({
-      id:companies.id,name:companies.name,cnpj:companies.cnpj,
-      responsible:companies.responsible,phone:companies.phone,email:companies.email,
-      address:companies.address,employees:companies.employees,proposalValue:companies.proposalValue,
-      stage:companies.stage,ownerId:companies.ownerId,inFunnel:companies.inFunnel,
-      createdAt:companies.createdAt
-    }).from(companies).where(conditions.length?and(...conditions):undefined).orderBy(companies.name,companies.id).limit(10001);
-    if(rows.length>10000)return res.status(413).json({error:"Exportação excede 10.000 empresas. Refine sua busca ou selecione um vendedor."});
-    const owners=await db.select({id:users.id,name:users.name}).from(users);
-    const byId=new Map(owners.map(x=>[x.id,x.name]));
-    const ids=rows.map(x=>x.id);
-    const tagRows=ids.length?await db.select({companyId:companyTags.companyId,name:tags.name})
-      .from(companyTags).innerJoin(tags,eq(companyTags.tagId,tags.id))
-      .where(inArray(companyTags.companyId,ids)).orderBy(companyTags.createdAt):[];
-    const tagMap=new Map<number,string[]>();
-    for(const tag of tagRows){const existing=tagMap.get(tag.companyId)||[];if(!existing.includes(tag.name))existing.push(tag.name);tagMap.set(tag.companyId,existing)}
-    res.setHeader("Cache-Control","no-store");
-    res.json({items:rows.map(x=>({
-      ...x,ownerName:x.ownerId?byId.get(x.ownerId)||"Vendedor não encontrado":"Sem responsável",
-      tags:(tagMap.get(x.id)||[]).join(", ")
-    })),total:rows.length,scope:u.role==="GESTOR"?"GESTOR":"MINHA_CARTEIRA"});
-  }catch(e:any){console.error("Falha na exportação de empresas:",e);res.status(500).json({error:"Não foi possível preparar a exportação de empresas"})}
+ try{
+  const actor=await getUser(req.session.userId);
+  if(!actor||!actor.active)return res.status(401).json({error:"Sessão inválida ou usuário inativo"});
+  const ownerFilter=companyOwnerFilter(req.query.sellerId,actor);
+  if(ownerFilter.error)return res.status(ownerFilter.status||400).json({error:ownerFilter.error});
+  const page=Number(req.query.page??1),limit=Number(req.query.limit??50),q=String(req.query.q||"").trim();
+  if(!Number.isSafeInteger(page)||page<1||!Number.isSafeInteger(limit)||limit<1||limit>100)
+   return res.status(400).json({error:"Página ou tamanho de lote inválido"});
+  const conditions:any[]=[];
+  if(q)conditions.push(or(ilike(companies.name,"%"+q+"%"),ilike(companies.cnpj,"%"+q+"%")));
+  // A pesquisa global de prevenção de duplicidade não libera exportação da carteira alheia.
+  if(actor.role==="VENDEDOR")conditions.push(eq(companies.ownerId,actor.id));
+  if(ownerFilter.condition)conditions.push(ownerFilter.condition);
+  const where=conditions.length?and(...conditions):undefined;
+  const [countRow]=await db.select({total:count()}).from(companies).where(where);
+  const total=Number(countRow?.total||0);
+  if(total>10000)return res.status(413).json({error:"Mais de 10.000 empresas encontradas. Refine a pesquisa ou selecione um vendedor."});
+  const list=await db.select({
+   id:companies.id,name:companies.name,cnpj:companies.cnpj,
+   responsible:companies.responsible,phone:companies.phone,email:companies.email,
+   address:companies.address,employees:companies.employees,proposalValue:companies.proposalValue,
+   stage:companies.stage,ownerId:companies.ownerId,inFunnel:companies.inFunnel,
+   proposalAt:companies.proposalAt,negotiationDeadline:companies.negotiationDeadline,
+   wonAt:companies.wonAt,lostAt:companies.lostAt,createdAt:companies.createdAt
+  }).from(companies).where(where).orderBy(companies.name,companies.id).limit(limit).offset((page-1)*limit);
+  const ids=list.map(x=>x.id);
+  const [ownerRows,visitRows,followupRows,auditRows,tagRows]=await Promise.all([
+   db.select({id:users.id,name:users.name}).from(users),
+   ids.length?db.select({
+    id:visits.id,companyId:visits.companyId,sellerId:visits.sellerId,
+    startsAt:visits.startsAt,endsAt:visits.endsAt,status:visits.status,
+    reason:visits.reason,notes:visits.notes,createdBy:visits.createdBy,
+    rescheduledToId:visits.rescheduledToId,createdAt:visits.createdAt,googleEventId:visits.googleEventId
+   }).from(visits).where(inArray(visits.companyId,ids)).orderBy(visits.createdAt,visits.id):Promise.resolve([]),
+   ids.length?db.select({
+    id:followups.id,companyId:followups.companyId,sellerId:followups.sellerId,
+    type:followups.type,notes:followups.notes,nextAt:followups.nextAt,
+    createdAt:followups.createdAt,googleEventId:followups.googleEventId
+   }).from(followups).where(inArray(followups.companyId,ids)).orderBy(followups.createdAt,followups.id):Promise.resolve([]),
+   ids.length?db.select({
+    id:events.id,companyId:events.companyId,actorId:events.actorId,
+    type:events.type,description:events.description,createdAt:events.createdAt
+   }).from(events).where(inArray(events.companyId,ids)).orderBy(events.createdAt,events.id):Promise.resolve([]),
+   ids.length?db.select({
+    id:companyTags.id,companyId:companyTags.companyId,tag:tags.name,
+    addedBy:companyTags.addedBy,createdAt:companyTags.createdAt
+   }).from(companyTags).innerJoin(tags,eq(companyTags.tagId,tags.id))
+    .where(inArray(companyTags.companyId,ids)).orderBy(companyTags.createdAt,companyTags.id):Promise.resolve([])
+  ]);
+  const names=new Map(ownerRows.map(x=>[x.id,x.name]));
+  const tagsByCompany=new Map<number,string[]>();
+  for(const tag of tagRows){const current=tagsByCompany.get(tag.companyId)||[];
+   if(!current.includes(tag.tag))current.push(tag.tag);tagsByCompany.set(tag.companyId,current)}
+  const companyItems=list.map(x=>({...x,
+   ownerName:x.ownerId?names.get(x.ownerId)||"Usuário não encontrado":"Sem responsável",
+   tags:(tagsByCompany.get(x.id)||[]).join(", ")
+  }));
+  const visitItems=visitRows.map(x=>({...x,
+   sellerName:names.get(x.sellerId)||"Usuário não encontrado",
+   createdByName:names.get(x.createdBy)||"Usuário não encontrado",googleSync:!!x.googleEventId
+  }));
+  const followupItems=followupRows.map(x=>({...x,
+   sellerName:names.get(x.sellerId)||"Usuário não encontrado",
+   googleSync:!x.nextAt||!!x.googleEventId
+  }));
+  const auditItems=auditRows.map(x=>({...x,
+   actorName:x.actorId?names.get(x.actorId)||"Usuário não encontrado":"Sistema/Importação"
+  }));
+  const tagItems=tagRows.map(x=>({...x,addedByName:names.get(x.addedBy)||"Usuário não encontrado"}));
+  if(visitItems.length+followupItems.length+auditItems.length+tagItems.length>3500)
+   return res.status(413).json({error:"Muitos eventos históricos no lote. Tente exportar um grupo menor de empresas."});
+  res.setHeader("Cache-Control","no-store");
+  res.json({items:companyItems,visits:visitItems,followups:followupItems,
+   audit:auditItems,tagHistory:tagItems,total,page,pageSize:limit,
+   totalPages:Math.ceil(total/limit),scope:actor.role==="GESTOR"?"GESTOR":"MINHA_CARTEIRA"});
+ }catch(error){console.error("Falha na exportação do histórico comercial:",error);
+  res.status(500).json({error:"Não foi possível preparar o histórico completo das empresas"})}
 });
 app.get("/api/companies",auth,async(req:any,res)=>{const u=await getUser(req.session.userId),q=String(req.query.q||"").trim(),cond:any[]=[];if(q)cond.push(or(ilike(companies.name,"%"+q+"%"),ilike(companies.cnpj,"%"+q+"%")));if(req.query.funnel==="1")cond.push(or(eq(companies.inFunnel,true),eq(companies.stage,"AGENDAMENTO"),eq(companies.stage,"NEGOCIACAO"),eq(companies.stage,"VENDA_GANHA"),eq(companies.stage,"VENDA_PERDIDA")));if(u.role==="VENDEDOR")cond.push(or(eq(companies.ownerId,u.id),eq(companies.stage,"VENDA_PERDIDA"),isNull(companies.ownerId)));const ownerFilter=companyOwnerFilter(req.query.sellerId,u);if(ownerFilter.error)return res.status(ownerFilter.status||400).json({error:ownerFilter.error});if(ownerFilter.condition)cond.push(ownerFilter.condition);const where=cond.length?and(...cond):undefined,paged=req.query.page!==undefined||req.query.limit!==undefined,page=Math.max(1,Number(req.query.page)||1),pageSize=Math.min(100,Math.max(1,Number(req.query.limit)||50)),offset=(page-1)*pageSize,countRows=paged?await db.select({count:sql<number>`count(*)::int`}).from(companies).where(where):[],rows=paged?await db.select().from(companies).where(where).orderBy(desc(companies.createdAt)).limit(pageSize).offset(offset):await db.select().from(companies).where(where).orderBy(desc(companies.createdAt)),owners=await db.select({id:users.id,name:users.name,active:users.active}).from(users),ids=rows.map(c=>c.id),tagRows=ids.length?await db.select({companyId:companyTags.companyId,name:tags.name,createdAt:companyTags.createdAt}).from(companyTags).innerJoin(tags,eq(companyTags.tagId,tags.id)).where(inArray(companyTags.companyId,ids)).orderBy(desc(companyTags.createdAt)):[],items=rows.map(c=>({...c,ownerName:owners.find(o=>o.id===c.ownerId)?.name||null,ownerActive:c.ownerId?owners.find(o=>o.id===c.ownerId)?.active??false:null,tags:tagRows.filter(t=>t.companyId===c.id).slice(0,2)}));if(!paged)return res.json(items);const total=Number(countRows[0]?.count||0);res.json({items,total,page,pageSize,totalPages:Math.ceil(total/pageSize)})});app.patch("/api/visits/:id",auth,async(req:any,res)=>{try{const a=await getUser(req.session.userId);if(a.role!=="GESTOR")return res.status(403).json({error:"Somente gestor pode transferir compromissos"});const id=Number(req.params.id),[v]=await db.select().from(visits).where(eq(visits.id,id));if(!v)return res.status(404).json({error:"Visita não encontrada"});const sellerId=Number(req.body.sellerId),[seller]=await db.select().from(users).where(eq(users.id,sellerId));if(!seller||seller.role!=="VENDEDOR"||!seller.active)return res.status(400).json({error:"Selecione um vendedor ativo"});if(await sellerBusy(sellerId,v.startsAt,v.endsAt,id))return res.status(409).json({error:"Conflito na agenda do vendedor"});let gid=null;try{const [company]=await db.select().from(companies).where(eq(companies.id,v.companyId));gid=await gEvent(sellerId,"VISITA — "+(company?.name||"Empresa"),v.startsAt,v.endsAt,"Novos Negócios Odontoart")}catch(e){console.error("Falha ao sincronizar visita transferida:",e)}const [updated]=await db.update(visits).set({sellerId,googleEventId:gid}).where(eq(visits.id,id)).returning();if(v.googleEventId)try{await gDelete(v.sellerId,v.googleEventId)}catch(e){console.error("Falha ao remover compromisso do vendedor anterior:",e)}await db.update(companies).set({ownerId:sellerId,stage:"AGENDAMENTO",inFunnel:true}).where(eq(companies.id,v.companyId));await audit(v.companyId,a.id,"VISITA_TRANSFERIDA","Visita transferida para "+seller.name+(gid?" e sincronizada com Google":"; sincronização Google pendente"));res.json({...updated,syncPending:!gid})}catch(e:any){console.error("Erro ao transferir visita:",e);res.status(500).json({error:e?.message||"Erro ao transferir visita"})}});app.get("/api/companies/:id",auth,async(req:any,res)=>{const u=await getUser(req.session.userId),[c]=await db.select().from(companies).where(eq(companies.id,Number(req.params.id)));if(!c)return res.status(404).end();if(u.role==="VENDEDOR"&&c.ownerId!==u.id)return res.status(403).json({error:"Esta empresa não pertence à sua carteira. Use a pesquisa global para verificar disponibilidade."});const ct=await db.select({name:tags.name,createdAt:companyTags.createdAt}).from(companyTags).innerJoin(tags,eq(companyTags.tagId,tags.id)).where(eq(companyTags.companyId,c.id)).orderBy(desc(companyTags.createdAt));res.json({...c,tags:ct})});
 app.post("/api/companies",auth,async(req:any,res)=>{const u=await getUser(req.session.userId),name=String(req.body.name||"").trim();if(!name)return res.status(400).json({error:"Nome da empresa é obrigatório"});const normalizeName=(v:any)=>String(v||"").trim().replace(/\s+/g," ").toLocaleLowerCase("pt-BR"),normalizeCnpj=(v:any)=>String(v||"").replace(/\D/g,""),all=await db.select().from(companies),sameName=all.find(x=>normalizeName(x.name)===normalizeName(name));if(sameName)return res.status(409).json({error:"Já existe uma empresa cadastrada com este nome. Selecione o cadastro existente.",company:sameName});if(req.body.cnpj){const cnpj=normalizeCnpj(req.body.cnpj),d=all.find(x=>x.cnpj&&normalizeCnpj(x.cnpj)===cnpj);if(d)return res.status(409).json({error:"CNPJ já cadastrado. Selecione o cadastro existente.",company:d})}const [c]=await db.insert(companies).values({...req.body,name,ownerId:u.role==="VENDEDOR"?u.id:req.body.ownerId||null}).returning();await audit(c.id,u.id,"EMPRESA_CRIADA","Empresa criada em Prospecção");res.json(c)});app.patch("/api/companies/:id",auth,async(req:any,res)=>{const u=await getUser(req.session.userId),id=Number(req.params.id);const [old]=await db.select().from(companies).where(eq(companies.id,id));if(u.role==="VENDEDOR"&&old.ownerId!==u.id)return res.status(403).end();const [c]=await db.update(companies).set(req.body).where(eq(companies.id,id)).returning();await audit(id,u.id,"EMPRESA_ATUALIZADA","Cadastro atualizado");res.json(c)});
