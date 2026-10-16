@@ -39,7 +39,7 @@ test("XLSX inclui seis abas conectadas pelo ID, com dados completos do ciclo",as
  assert.equal(workbook.type,"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
  const buffer=await workbook.arrayBuffer(),bytes=new Uint8Array(buffer);
  const entries=xmlEntries(bytes);
- assert.equal(entries.size,10);
+ assert.equal(entries.size,11);
  assert.ok(entries.get("xl/workbook.xml")?.includes('name="Linha do Tempo"'));
  assert.ok(entries.get("xl/workbook.xml")?.includes('name="Historico Funil"'));
  for(let i=1;i<=6;i++){
