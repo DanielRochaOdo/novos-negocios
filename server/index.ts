@@ -41,7 +41,7 @@ app.get("/api/companies/search-global",auth,async(req:any,res)=>{const u=await g
 app.get("/api/companies/export-data",auth,async(req:any,res)=>{
  try{
   const actor=await getUser(req.session.userId);
-  if(!actor)return res.status(401).json({error:"Sessão inválida"});
+  if(!actor||!actor.active)return res.status(401).json({error:"Sessão inválida ou usuário inativo"});
   const ownerFilter=companyOwnerFilter(req.query.sellerId,actor);
   if(ownerFilter.error)return res.status(ownerFilter.status||400).json({error:ownerFilter.error});
   const page=Number(req.query.page??1),limit=Number(req.query.limit??50),q=String(req.query.q||"").trim();
@@ -108,7 +108,7 @@ app.get("/api/companies/export-data",auth,async(req:any,res)=>{
    actorName:x.actorId?names.get(x.actorId)||"Usuário não encontrado":"Sistema/Importação"
   }));
   const tagItems=tagRows.map(x=>({...x,addedByName:names.get(x.addedBy)||"Usuário não encontrado"}));
-  if(visitItems.length+followupItems.length+auditItems.length+tagItems.length>15000)
+  if(visitItems.length+followupItems.length+auditItems.length+tagItems.length>3500)
    return res.status(413).json({error:"Muitos eventos históricos no lote. Tente exportar um grupo menor de empresas."});
   res.setHeader("Cache-Control","no-store");
   res.json({items:companyItems,visits:visitItems,followups:followupItems,
