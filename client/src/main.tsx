@@ -102,7 +102,7 @@ function Empresas(){const[c,sc]=useState<any[]>([]),[q,sq]=useState(""),[users,s
   setExportMessage("Carregando histórico completo: "+Math.min(current*50,total)+" de "+total+" empresas...");
  }
  if(!data.items.length){setExportMessage("Nenhuma empresa corresponde ao filtro para exportação.");return}
- if(data.items.length!==total)throw new Error("A lista de empresas mudou durante a exportação. Tente novamente para evitar um relatório parcial.");
+ if(data.items.length!==total||new Set(data.items.map((c:any)=>c.id)).size!==total)throw new Error("A lista de empresas mudou durante a exportação. Tente novamente para evitar um relatório parcial ou duplicado.");
  const ownerLabel=me.role!=="GESTOR"?"minha-carteira":sellerFilter==="all"?"todos":sellerFilter==="unassigned"?"sem-vendedor":users.find(x=>String(x.id)===sellerFilter)?.name||"vendedor";
  const slug=String(ownerLabel).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
  setExportMessage("Montando Excel com dados comerciais, visitas e acompanhamentos...");
