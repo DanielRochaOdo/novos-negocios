@@ -11,6 +11,24 @@ Node 20+, PostgreSQL/Neon e credenciais OAuth do Google Calendar.
 3. `npm run db:ensure` (cria/verifica as tabelas necessárias sem apagar dados)
 4. `npm run dev`
 
+## Executar localmente
+
+Depois da instalação e configuração do `.env`, abra dois terminais na pasta do projeto:
+
+Terminal 1 — API:
+
+```bash
+npm run dev
+```
+
+Terminal 2 — frontend:
+
+```bash
+npm run dev:client
+```
+
+Acesse o sistema em `http://localhost:5173`. A API roda em `http://localhost:3000`.
+
 ## Migração segura do Neon
 
 **Não use `npm run db:push` rotineiramente em produção.** Em uma execução anterior, o Drizzle removeu a tabela `user_sessions` com 31 registros de sessão, pois essa tabela ainda não estava representada no schema. Ela agora está registrada em `shared/schema.ts`.
